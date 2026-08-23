@@ -2,21 +2,6 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // ---------------------------------------------------------------------
-// Cantos técnicos (corner-frame): injeta os 4 marcadores de canto
-// ---------------------------------------------------------------------
-function injectCorners(scope) {
-  (scope || document).querySelectorAll(".corner-frame:not([data-corners])").forEach((el) => {
-    el.setAttribute("data-corners", "1");
-    ["tl", "tr", "bl", "br"].forEach((pos) => {
-      const i = document.createElement("i");
-      i.className = "corner " + pos;
-      el.appendChild(i);
-    });
-  });
-}
-injectCorners();
-
-// ---------------------------------------------------------------------
 // CATÁLOGO — dados de EXEMPLO. Substituir por linhas/produtos reais da
 // Start Industrial (nome, descrição, e se possível imagem em assets/produtos/).
 // ---------------------------------------------------------------------
@@ -29,42 +14,36 @@ const ICON_PAINEL = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 
 const PRODUTOS = [
   {
-    ref: "SI-CF",
     icon: ICON_BOMBA,
     titulo: "Bombas centrífugas",
     resumo: "Para movimentação de água em grande volume.",
     descricao: "Linha de bombas centrífugas para captação, transferência e recalque de água em obras e plantas industriais. Dimensionamento técnico conforme vazão e altura manométrica do projeto. — Descrição de exemplo, ajustar com specs reais do catálogo."
   },
   {
-    ref: "SI-SB",
     icon: ICON_SUBMERSA,
     titulo: "Bombas submersíveis",
     resumo: "Para poços, cisternas e áreas alagadas.",
     descricao: "Equipamentos submersíveis para drenagem de obra, poços artesianos e situações de nível de água variável. Robustez para operação contínua em ambiente agressivo. — Descrição de exemplo, ajustar com specs reais do catálogo."
   },
   {
-    ref: "SI-RC",
     icon: ICON_RECALQUE,
     titulo: "Sistemas de recalque",
     resumo: "Água até a última laje, com pressão constante.",
     descricao: "Sistema completo de recalque projetado para prédios e empreendimentos verticais — da caixa d'água ao reservatório superior, garantindo pressão adequada em todos os pavimentos. — Descrição de exemplo, ajustar com specs reais do catálogo."
   },
   {
-    ref: "SI-BT",
     icon: ICON_BOOSTER,
     titulo: "Pressurização / booster",
     resumo: "Pressão constante mesmo em horário de pico.",
     descricao: "Conjuntos pressurizadores (booster) com variador de frequência para manter pressão estável independentemente da demanda simultânea de água no empreendimento. — Descrição de exemplo, ajustar com specs reais do catálogo."
   },
   {
-    ref: "SI-DS",
     icon: ICON_DOSADORA,
     titulo: "Bombas dosadoras",
     resumo: "Dosagem precisa de produtos químicos.",
     descricao: "Para aplicações de tratamento de água/efluentes que exigem dosagem controlada e precisa de reagentes. — Descrição de exemplo, ajustar com specs reais do catálogo."
   },
   {
-    ref: "SI-PA",
     icon: ICON_PAINEL,
     titulo: "Automação e painéis elétricos",
     resumo: "Controle inteligente do seu sistema.",
@@ -73,14 +52,11 @@ const PRODUTOS = [
 ];
 
 const carousel = document.getElementById("carousel");
-PRODUTOS.forEach((p, i) => {
+PRODUTOS.forEach((p) => {
   const card = document.createElement("button");
-  card.className = "produto-card corner-frame";
+  card.className = "produto-card";
   card.innerHTML = `
-    <div class="produto-thumb">
-      <span class="tag">REF. ${p.ref}-0${i + 1}</span>
-      ${p.icon}
-    </div>
+    <div class="produto-thumb">${p.icon}</div>
     <div class="produto-body">
       <h3>${p.titulo}</h3>
       <p>${p.resumo}</p>
@@ -89,7 +65,6 @@ PRODUTOS.forEach((p, i) => {
   card.addEventListener("click", () => openModal(p));
   carousel.appendChild(card);
 });
-injectCorners(carousel);
 
 document.getElementById("carPrev").addEventListener("click", () => {
   carousel.scrollBy({ left: -320, behavior: "smooth" });
@@ -132,19 +107,3 @@ navToggle.addEventListener("click", () => mobileNav.classList.toggle("open"));
 mobileNav.querySelectorAll("a").forEach((a) =>
   a.addEventListener("click", () => mobileNav.classList.remove("open"))
 );
-
-// ---------------------------------------------------------------------
-// Revelação suave ao rolar (IntersectionObserver)
-// ---------------------------------------------------------------------
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("in-view");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
-);
-document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
