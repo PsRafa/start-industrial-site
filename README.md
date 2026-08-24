@@ -13,62 +13,72 @@ Só abrir `index.html` no navegador, ou rodar um servidor estático simples:
 npx serve .
 ```
 
-## Como publicar (grátis)
-
-Recomendado: GitHub Pages ou Vercel (import direto do repo, sem configuração).
+## Como publicar
 
 ```
-git init
-git add .
-git commit -m "landing page institucional Start Industrial"
-gh repo create start-industrial-site --public --source=. --push
+git add -A
+git commit -m "..."
+git push origin main
 ```
 
-Depois, ativar GitHub Pages nas configurações do repo (branch `main`, pasta raiz),
-ou importar o repo na Vercel.
+O GitHub Pages já está ativo neste repo (branch `main`, pasta raiz) — publica automaticamente
+a cada push em: **https://psrafa.github.io/start-industrial-site/**
 
-## ⚠️ Pendências antes de publicar de verdade (dados de exemplo usados)
+## ⚠️ Pendências reais (o que ainda precisa de confirmação sua)
 
-- [ ] **Número de WhatsApp real do Erick** — hoje está como placeholder
-      `5500000000000` em `index.html` (4 ocorrências: header, hero, seção
-      de contato, botão flutuante).
-- [ ] **E-mail comercial real** — hoje `comercial@startindustrial.com.br`
-      (placeholder) em `index.html` (action do formulário + info de contato)
-      e em `legal/politica-de-privacidade.html`.
-- [ ] **Ativar o FormSubmit**: na primeira submissão do formulário, o
-      FormSubmit.co manda um e-mail de confirmação para o endereço
-      configurado — é preciso clicar no link de ativação uma vez, senão
-      os envios seguintes não chegam.
-- [ ] **Catálogo real de produtos** — o carrossel (`js/main.js`, array
-      `PRODUTOS`) está com 6 categorias genéricas de bomba industrial
-      como exemplo. Me manda a lista real (nome, descrição curta, e se
-      tiver, foto de cada linha) que eu troco.
-- [ ] **Fotos reais** — hero, seção "Obras e equipamentos" (`#galeria`)
-      e miniaturas do carrossel estão com placeholders visuais (SVG/gradiente),
-      não fotos. Pedir pro Erick/Daniel; troco por `<img>` assim que tiver.
-- [ ] **Logo oficial** — recriei o logo em SVG a partir da imagem que você
-      mandou (aproximação, não é o arquivo vetorial original). Se você tiver
-      o `.svg`/`.ai` oficial da marca, me manda que eu substituo em
-      `index.html` (2 ocorrências: header e rodapé) — fica mais fiel.
-- [ ] **Textos institucionais** (missão, visão, valores, "quem somos",
-      números do hero tipo "+00 anos de experiência") estão marcados com
-      `<em>(ajustar)</em>` — são só placeholders de estrutura.
-- [ ] **CNPJ e endereço** no rodapé — placeholder.
-- [ ] **Política de Privacidade** (`legal/politica-de-privacidade.html`) —
-      texto-base de LGPD, precisa de revisão jurídica antes de publicar oficialmente.
+- [ ] **Confirmar e-mail comercial**: usei `contato@startindustrial.com.br` (baseado no
+      domínio real do catálogo) no formulário, na página de contato e na política de
+      privacidade. Se a caixa certa for outra, me fala que eu troco em tudo de uma vez.
+- [ ] **Ativar o FormSubmit**: na primeira submissão do formulário, o FormSubmit.co manda
+      um e-mail de confirmação pra `contato@startindustrial.com.br` — alguém precisa clicar
+      no link de ativação uma vez, senão os envios seguintes não chegam.
+- [ ] **Fotos de obra "ao vivo"** (não só produto de catálogo) — a seção Instagram usa as
+      fotos de produto do catálogo por enquanto. Se quiser fotos reais de obras/instalações
+      lá, é só mandar.
+- [ ] **Horário de atendimento** no cartão de contato — ainda placeholder ("Seg a sex, 8h
+      às 18h"), ajusta se for diferente.
+- [ ] **CNPJ** — não estava no catálogo, não incluí no rodapé. Manda se quiser que apareça.
+- [ ] **Política de Privacidade** — texto-base de LGPD, ainda precisa de revisão jurídica
+      antes de publicar como documento oficial.
+
+## O que já é 100% real (veio do catálogo em PDF)
+
+- Logo oficial (`assets/start_ind.png`, extraído dos arquivos que você mandou)
+- Telefone/WhatsApp: (47) 9 9151-4600
+- Endereço: Rua Max, 200 — São João, Itajaí/SC
+- Instagram: @start.bombas
+- As 6 categorias de produto, com descrição e "Aplicações" reais (`js/main.js`, array `PRODUTOS`)
+- Fotos reais de cada categoria de produto (`assets/produtos/`, extraídas do PDF)
+- Foto real da fachada da fábrica, usada no hero (`assets/fachada-fabrica.jpeg`)
+- Texto de "Sobre nós" e "Portfólio" (seção `#sobre`)
+- Catálogo em PDF completo, disponível pra download direto no site
+  (`assets/catalogo/catalogo-start-industrial.pdf`)
 
 ## Estrutura
 
 ```
-index.html                        página única
-css/styles.css                    todo o estilo (paleta teal da marca)
-js/main.js                        carrossel de produtos, modal, menu mobile
+index.html                          página única
+css/styles.css                      todo o estilo
+js/main.js                          carrossel, modal, grid do Instagram, marquee, menu mobile
 legal/politica-de-privacidade.html
-assets/favicon.svg
+assets/start_ind.png                logo oficial
+assets/fachada-fabrica.jpeg         foto real da fábrica (usada no hero)
+assets/produtos/*.jpeg              fotos reais de cada categoria (extraídas do catálogo)
+assets/catalogo/*.pdf               catálogo completo pra download
+tools/extract_catalog_images.py     script usado pra extrair as fotos do PDF — reaproveitar
+                                     se o catálogo for atualizado no futuro
 ```
 
 ## Formulário de orçamento
 
-Usa [FormSubmit](https://formsubmit.co) (gratuito, sem cadastro, sem backend)
-para receber os dados por e-mail, incluindo o anexo de projeto (PDF/DWG/imagem).
-Zero custo, zero infraestrutura pra manter.
+Usa [FormSubmit](https://formsubmit.co) (gratuito, sem cadastro, sem backend) para receber
+os dados por e-mail, incluindo o anexo de projeto (PDF/DWG/imagem). Zero custo.
+
+## Toques de UX/UI adicionados
+
+- Marquee contínuo com os setores atendidos (dado real, extraído das "Aplicações" do catálogo)
+- Grid de "posts" estilo Instagram com as fotos reais, linkando pro perfil @start.bombas
+- Parallax sutil na foto do hero ao rolar (desativa automaticamente se o visitante tem
+  "reduzir movimento" ativado no sistema)
+- Hover com zoom sutil nos cards de produto
+- Modal de produto com foto real + bloco de "Aplicações"
