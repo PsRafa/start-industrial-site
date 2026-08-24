@@ -6,7 +6,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Start Industrial — Soluções Hidráulicas para sua Obra</title>
 <meta name="description" content="Sistemas de motobombas e painéis de comando para obras de médio e grande porte. Recalque, pressurização, combate a incêndio e automação. Solicite um orçamento.">
+<meta name="robots" content="index, follow">
+<meta name="language" content="pt-BR">
+<link rel="canonical" href="https://psrafa.github.io/start-industrial-site/">
 <link rel="icon" href="assets/favicon.png" type="image/png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Start Industrial">
+<meta property="og:title" content="Start Industrial — Soluções Hidráulicas para sua Obra">
+<meta property="og:description" content="Sistemas de motobombas e painéis de comando para obras de médio e grande porte. Recalque, pressurização, combate a incêndio e automação. Solicite um orçamento.">
+<meta property="og:image" content="https://psrafa.github.io/start-industrial-site/assets/fachada-fabrica.jpeg">
+<meta property="og:url" content="https://psrafa.github.io/start-industrial-site/">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Start Industrial — Soluções Hidráulicas para sua Obra">
+<meta name="twitter:description" content="Sistemas de motobombas e painéis de comando para obras de médio e grande porte. Recalque, pressurização, combate a incêndio e automação.">
+<meta name="twitter:image" content="https://psrafa.github.io/start-industrial-site/assets/fachada-fabrica.jpeg">
+
+<!-- Schema.org LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Start Industrial",
+  "image": "https://psrafa.github.io/start-industrial-site/assets/fachada-fabrica.jpeg",
+  "url": "https://psrafa.github.io/start-industrial-site/",
+  "telephone": "+5547991514600",
+  "email": "contato@startindustrial.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua Max, 200 — São João",
+    "addressLocality": "Itajaí",
+    "addressRegion": "SC",
+    "addressCountry": "BR"
+  },
+  "sameAs": ["https://www.instagram.com/start.bombas/"],
+  "description": "Indústria especializada na produção de sistemas de motobombas e painéis de comando para obras de médio e grande porte."
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -47,7 +87,13 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="topo">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <div class="full-media">
+      <div class="full-media-blur" style="background-image:url('assets/fachada-fabrica.jpeg')"></div>
+      <img class="full-media-img" src="assets/fachada-fabrica.jpeg" alt="Fachada da fábrica Start Industrial em Itajaí/SC">
+    </div>
+    <div class="hero-bg-fade"></div>
+  </div>
   <div class="container hero-content">
     <span class="eyebrow">Start Industrial</span>
     <h1>Pressão certa, vazão certa, sem parar sua obra.</h1>
@@ -99,75 +145,24 @@
   </div>
 </section>
 
-<!-- ===================== SHOWCASE — PRODUTOS (sticky scroll) ===================== -->
-<div class="showcase-intro">
-  <div class="container section-head split reveal">
-    <div>
-      <span class="eyebrow">Catálogo</span>
-      <h2 id="produtos">Linhas de produto</h2>
-      <p class="lead">Seis famílias de sistemas, cada uma resolvendo um problema específico de obra.</p>
+<!-- ===================== GALERIA — PRODUTOS (abas) ===================== -->
+<section class="gallery" id="showcase">
+  <div class="container">
+    <div class="section-head split reveal">
+      <div>
+        <span class="eyebrow">Catálogo</span>
+        <h2 id="produtos">Linhas de produto</h2>
+        <p class="lead">Seis famílias de sistemas, cada uma resolvendo um problema específico de obra.</p>
+      </div>
+      <a class="link-cta" href="assets/catalogo/catalogo-start-industrial.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4"/><path d="M4 17v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+        Baixar catálogo completo (PDF)
+      </a>
     </div>
-    <a class="link-cta" href="assets/catalogo/catalogo-start-industrial.pdf" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-4-4m4 4l4-4"/><path d="M4 17v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
-      Baixar catálogo completo (PDF)
-    </a>
-  </div>
-</div>
 
-<section class="showcase" id="showcase">
-  <div class="showcase-sticky-col">
-    <div class="showcase-media">
-      <div class="showcase-media-layer active" data-img="assets/produtos/pressurizadores-obra.jpeg" style="background-image:url('assets/produtos/pressurizadores-obra.jpeg')"></div>
-      <div class="showcase-media-layer" style="background-image:url('assets/produtos/sistemas-recalque.jpeg')"></div>
-      <div class="showcase-media-layer" style="background-image:url('assets/produtos/combate-incendio.jpeg')"></div>
-      <div class="showcase-media-layer" style="background-image:url('assets/produtos/pressurizacao-direta-indireta.jpeg')"></div>
-      <div class="showcase-media-layer" style="background-image:url('assets/produtos/estacoes-elevatorias.jpeg')"></div>
-      <div class="showcase-media-layer" style="background-image:url('assets/produtos/paineis-automacao.jpeg')"></div>
-      <div class="showcase-progress" id="showcaseProgress"></div>
-    </div>
-  </div>
-  <div class="showcase-scroll-col" id="showcaseScroll">
-    <div class="showcase-item" data-index="0" style="--img:url('assets/produtos/pressurizadores-obra.jpeg')">
-      <span class="n">01 — Pressurizadores de obra</span>
-      <h3>Água com pressão certa durante toda a construção</h3>
-      <p>Sistemas provisórios utilizados durante a fase de construção para garantir o fornecimento de água com pressão adequada nos pontos de uso temporários, como mangueiras, lavadoras e equipamentos de limpeza — essenciais em obras verticais, onde a pressão da rede pública não chega aos andares superiores.</p>
-      <span class="app-label">Aplicações</span>
-      <p class="app-text">Canteiros de obras residenciais, comerciais e industriais, principalmente em edifícios de múltiplos pavimentos.</p>
-    </div>
-    <div class="showcase-item" data-index="1" style="--img:url('assets/produtos/sistemas-recalque.jpeg')">
-      <span class="n">02 — Sistemas de recalque</span>
-      <h3>Da cisterna até a caixa d'água, sem interrupção</h3>
-      <p>Utilizados em edificações e condomínios, realizam o bombeamento de água de reservatórios inferiores (cisternas) para reservatórios superiores (caixas d'água), assegurando abastecimento contínuo e distribuição uniforme em todos os pontos de consumo.</p>
-      <span class="app-label">Aplicações</span>
-      <p class="app-text">Prédios residenciais, hotéis, condomínios, hospitais, indústrias e centros comerciais.</p>
-    </div>
-    <div class="showcase-item" data-index="2" style="--img:url('assets/produtos/combate-incendio.jpeg')">
-      <span class="n">03 — Combate a incêndio</span>
-      <h3>Água pressurizada pronta pra atuação imediata</h3>
-      <p>Mantêm a água pressurizada disponível para atuação imediata em caso de incêndio. Alimentam redes de hidrantes e sprinklers com vazão e pressão adequadas, assegurando eficácia no combate inicial ao fogo.</p>
-      <span class="app-label">Aplicações</span>
-      <p class="app-text">Edifícios residenciais e comerciais, indústrias, hospitais, shopping centers, escolas, condomínios e galpões logísticos.</p>
-    </div>
-    <div class="showcase-item" data-index="3" style="--img:url('assets/produtos/pressurizacao-direta-indireta.jpeg')">
-      <span class="n">04 — Pressurização direta e indireta</span>
-      <h3>Pressão estável, direto da rede ou via reservatório</h3>
-      <p>Direta: bombeia a água diretamente da rede pública ou do reservatório, garantindo fluxo contínuo e pressão estável. Indireta: usa reservatórios intermediários para equalizar o abastecimento, reduzindo variações de pressão e protegendo tubulação e equipamentos contra sobrecargas.</p>
-      <span class="app-label">Aplicações</span>
-      <p class="app-text">Direta: edifícios de médio porte, academias, restaurantes e hotéis. Indireta: residenciais, hospitais, shopping centers e condomínios de grande porte.</p>
-    </div>
-    <div class="showcase-item" data-index="4" style="--img:url('assets/produtos/estacoes-elevatorias.jpeg')">
-      <span class="n">05 — Estações elevatórias</span>
-      <h3>Bombeamento de águas residuais e pluviais</h3>
-      <p>Realizam o bombeamento de águas residuais ou pluviais quando o nível da rede pública está acima do ponto de coleta, evitando refluxo. Também usadas na drenagem de garagens, subsolos e poços de elevador, prevenindo alagamentos.</p>
-      <span class="app-label">Aplicações</span>
-      <p class="app-text">Subsolos, garagens, indústrias, hospitais, shopping centers, condomínios e áreas de difícil escoamento.</p>
-    </div>
-    <div class="showcase-item" data-index="5" style="--img:url('assets/produtos/paineis-automacao.jpeg')">
-      <span class="n">06 — Painéis de automação</span>
-      <h3>Controle e proteção inteligente do sistema</h3>
-      <p>Painéis elétricos responsáveis pelo controle e proteção dos sistemas de bombeamento — operação totalmente automática, monitoramento contínuo, detecção de falhas elétricas e comandos de segurança.</p>
-      <span class="app-label">Aplicações</span>
-      <p class="app-text">Todos os tipos de sistema de bombeamento, em edificações residenciais e comerciais, indústrias, hospitais e centros corporativos.</p>
+    <div class="gallery-shell reveal">
+      <div class="gallery-tablist" id="galleryTabs" role="tablist" aria-label="Linhas de produto"></div>
+      <div class="gallery-stage" id="galleryStage"></div>
     </div>
   </div>
 </section>
@@ -194,7 +189,12 @@
 
 <div class="dif-zigzag">
   <div class="dif-row">
-    <div class="dif-media reveal-img" style="background-image:url('assets/fachada-fabrica.jpeg')"></div>
+    <div class="dif-media reveal-img">
+      <div class="full-media">
+        <div class="full-media-blur" style="background-image:url('assets/fachada-fabrica.jpeg')"></div>
+        <img class="full-media-img" src="assets/fachada-fabrica.jpeg" alt="Fábrica própria da Start Industrial em Itajaí/SC">
+      </div>
+    </div>
     <div class="dif-copy reveal">
       <span class="n">01</span>
       <h3>Somos a indústria fabricante</h3>
@@ -202,7 +202,12 @@
     </div>
   </div>
   <div class="dif-row">
-    <div class="dif-media reveal-img" style="background-image:url('assets/produtos/paineis-automacao.jpeg')"></div>
+    <div class="dif-media reveal-img">
+      <div class="full-media">
+        <div class="full-media-blur" style="background-image:url('assets/produtos/paineis-automacao.jpeg')"></div>
+        <img class="full-media-img" src="assets/produtos/paineis-automacao.jpeg" alt="Painel de automação Start Industrial">
+      </div>
+    </div>
     <div class="dif-copy reveal">
       <span class="n">02</span>
       <h3>Sistema completo, não peça avulsa</h3>
@@ -210,7 +215,12 @@
     </div>
   </div>
   <div class="dif-row">
-    <div class="dif-media reveal-img" style="background-image:url('assets/produtos/sistemas-recalque.jpeg')"></div>
+    <div class="dif-media reveal-img">
+      <div class="full-media">
+        <div class="full-media-blur" style="background-image:url('assets/produtos/sistemas-recalque.jpeg')"></div>
+        <img class="full-media-img" src="assets/produtos/sistemas-recalque.jpeg" alt="Sistema de recalque Start Industrial">
+      </div>
+    </div>
     <div class="dif-copy reveal">
       <span class="n">03</span>
       <h3>Qualidade que aguenta obra grande</h3>
@@ -218,7 +228,12 @@
     </div>
   </div>
   <div class="dif-row">
-    <div class="dif-media reveal-img" style="background-image:url('assets/produtos/combate-incendio.jpeg')"></div>
+    <div class="dif-media reveal-img">
+      <div class="full-media">
+        <div class="full-media-blur" style="background-image:url('assets/produtos/combate-incendio.jpeg')"></div>
+        <img class="full-media-img" src="assets/produtos/combate-incendio.jpeg" alt="Sistema de combate a incêndio Start Industrial">
+      </div>
+    </div>
     <div class="dif-copy reveal">
       <span class="n">04</span>
       <h3>Suporte direto, sem call center</h3>
@@ -229,7 +244,13 @@
 
 <!-- ===================== SOBRE ===================== -->
 <section class="sobre" id="sobre">
-  <div class="sobre-bg"></div>
+  <div class="sobre-bg">
+    <div class="full-media">
+      <div class="full-media-blur" style="background-image:url('assets/fachada-fabrica.jpeg')"></div>
+      <img class="full-media-img" src="assets/fachada-fabrica.jpeg" alt="Fábrica Start Industrial">
+    </div>
+  </div>
+  <div class="sobre-fade"></div>
   <div class="sobre-inner reveal">
     <span class="eyebrow">Quem somos</span>
     <blockquote>"Indústria especializada na produção de sistemas de motobombas e painéis de comando para obras de médio e grande porte — unindo qualidade, inovação e compromisso com os prazos."</blockquote>
@@ -261,7 +282,9 @@
       </div>
       <a class="link-cta" href="https://www.instagram.com/start.bombas/" target="_blank" rel="noopener">Ver perfil completo</a>
     </div>
-    <div class="ig-grid reveal" id="igGrid"></div>
+  </div>
+  <div class="ig-carousel reveal">
+    <div class="ig-track" id="igTrack"></div>
   </div>
 </section>
 

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /legal/
+
+Sitemap: https://psrafa.github.io/start-industrial-site/sitemap.xml

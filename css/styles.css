@@ -123,16 +123,29 @@ nav.main-nav a:hover { color: #fff; }
   color: #fff;
   overflow: hidden;
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(180deg, rgba(6,15,13,0.35) 0%, rgba(6,15,13,0.25) 45%, rgba(6,15,13,0.92) 100%), url('../assets/fachada-fabrica.jpeg');
-  background-size: cover;
-  background-position: center 60%;
-  animation: kenburns 16s ease-out forwards;
+.hero-bg { position: absolute; inset: 0; animation: kenburns 16s ease-out forwards; }
+.hero-bg-fade {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(6,15,13,0.35) 0%, rgba(6,15,13,0.25) 45%, rgba(6,15,13,0.92) 100%);
 }
 @keyframes kenburns {
   from { transform: scale(1.12); }
   to { transform: scale(1); }
+}
+
+/* ============ FULL-MEDIA — mostra a imagem inteira, sem cortar,
+   com um fundo desfocado da própria foto preenchendo as bordas ============ */
+.full-media { position: absolute; inset: 0; overflow: hidden; background: var(--ink); }
+.full-media-blur {
+  position: absolute; inset: -20px;
+  background-size: cover; background-position: center;
+  filter: blur(36px) brightness(0.55) saturate(1.3);
+  transform: scale(1.15);
+}
+.full-media-img {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: center;
 }
 .hero-content { position: relative; z-index: 2; padding: 0 0 100px; width: 100%; }
 .hero-content .eyebrow { color: var(--brand-glow); }
@@ -190,53 +203,58 @@ nav.main-nav a:hover { color: #fff; }
 .section-head.on-dark h2 { color: #fff; }
 .section-head.on-dark .lead { color: rgba(255,255,255,0.68); }
 
-/* ============ SHOWCASE — sticky media + scroll de produtos ============ */
-.showcase-intro { padding: 130px 0 60px; background: var(--white); }
-.showcase {
-  position: relative;
+/* ============ GALERIA DE PRODUTOS — abas ============ */
+.gallery { padding: 130px 0 90px; background: var(--white); }
+.gallery-shell {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-}
-.showcase-sticky-col { position: relative; }
-.showcase-media {
-  position: sticky; top: 0;
-  height: 100vh;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 18px;
   overflow: hidden;
-  background: var(--ink);
+  background: var(--paper);
 }
-.showcase-media-layer {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  opacity: 0;
-  transition: opacity 0.6s ease;
+.gallery-tablist {
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--line);
+  background: var(--white);
 }
-.showcase-media-layer.active { opacity: 1; }
-.showcase-media::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(6,15,13,0.1), rgba(6,15,13,0.55));
+.gallery-tab {
+  display: flex; align-items: baseline; gap: 14px;
+  text-align: left; background: none; border: none; cursor: pointer;
+  padding: 22px 24px; font: inherit; color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s ease, color 0.2s ease;
+  position: relative;
 }
-.showcase-progress {
-  position: absolute; left: 40px; bottom: 40px; z-index: 3;
-  display: flex; flex-direction: column; gap: 10px;
+.gallery-tab:last-child { border-bottom: none; }
+.gallery-tab::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--brand); transform: scaleY(0); transition: transform 0.25s ease;
 }
-.showcase-progress .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); transition: background 0.3s ease, transform 0.3s ease; }
-.showcase-progress .dot.active { background: var(--brand-glow); transform: scale(1.4); }
-.showcase-scroll-col { display: flex; flex-direction: column; }
-.showcase-item {
-  min-height: 88vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 60px 60px 60px 56px;
-  border-top: 1px solid var(--line);
+.gallery-tab .gt-num { font-family: "Sora", sans-serif; font-weight: 700; font-size: 0.8rem; color: var(--ink-faint); }
+.gallery-tab .gt-name { font-weight: 600; font-size: 0.96rem; }
+.gallery-tab:hover { background: var(--paper); color: var(--ink); }
+.gallery-tab.active { background: var(--paper); color: var(--ink); }
+.gallery-tab.active::before { transform: scaleY(1); }
+.gallery-tab.active .gt-num { color: var(--brand); }
+
+.gallery-stage { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 460px; }
+.gallery-media { position: relative; overflow: hidden; background: var(--ink); min-height: 320px; }
+.gallery-copy {
+  padding: 44px 44px 44px 6px; display: flex; flex-direction: column; justify-content: center;
+  opacity: 0; transform: translateY(10px); transition: opacity 0.35s ease, transform 0.35s ease;
 }
-.showcase-item:first-child { border-top: none; }
-.showcase-item::before { content: none; }
-.showcase-item .n { font-family: "Sora", sans-serif; font-size: 0.85rem; color: var(--brand); font-weight: 700; margin-bottom: 18px; }
-.showcase-item h3 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin-bottom: 18px; }
-.showcase-item p { color: var(--ink-soft); font-size: 1rem; max-width: 46ch; margin: 0 0 18px; }
-.showcase-item .app-label { font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brand); margin: 20px 0 6px; }
-.showcase-item .app-text { font-size: 0.9rem; color: var(--ink-faint); max-width: 46ch; margin: 0; }
-.showcase-outro { padding: 60px 0 130px; text-align: center; background: var(--white); }
+.gallery-copy.in { opacity: 1; transform: translateY(0); }
+.gallery-media .full-media-img { transition: opacity 0.35s ease; }
+.gallery-media.fading .full-media-img,
+.gallery-media.fading .full-media-blur { opacity: 0; }
+.gallery-copy .n { font-family: "Sora", sans-serif; font-size: 0.85rem; color: var(--brand); font-weight: 700; margin-bottom: 14px; }
+.gallery-copy h3 { font-size: clamp(1.4rem, 2vw, 1.8rem); margin-bottom: 16px; }
+.gallery-copy p { color: var(--ink-soft); font-size: 0.98rem; margin: 0 0 16px; }
+.gallery-copy .app-label { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--brand); margin: 16px 0 6px; }
+.gallery-copy .app-text { font-size: 0.88rem; color: var(--ink-faint); margin: 0; }
+.showcase-outro { padding: 0 0 130px; text-align: center; background: var(--white); }
 
 /* ============ MARQUEE ============ */
 .marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
@@ -257,11 +275,11 @@ nav.main-nav a:hover { color: #fff; }
 .dif-row:nth-child(even) .dif-media { order: 2; }
 .dif-media {
   height: 100%; min-height: 78vh;
-  background-size: cover; background-position: center;
   background-color: var(--ink);
   position: relative;
+  overflow: hidden;
 }
-.dif-media::after { content: ""; position: absolute; inset: 0; background: rgba(6,15,13,0.18); }
+.dif-media::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(6,15,13,0.18); pointer-events: none; }
 .dif-copy { padding: 60px 8vw; }
 .dif-copy .n { font-family: "Sora", sans-serif; font-size: 3.2rem; font-weight: 800; color: var(--line); line-height: 1; margin-bottom: 20px; }
 .dif-copy h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
@@ -274,10 +292,10 @@ nav.main-nav a:hover { color: #fff; }
   display: flex; align-items: center; justify-content: center;
   text-align: center; color: #fff; padding: 100px 32px; overflow: hidden;
 }
-.sobre-bg {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(180deg, rgba(6,15,13,0.75), rgba(6,15,13,0.88)), url('../assets/fachada-fabrica.jpeg');
-  background-size: cover; background-position: center 30%;
+.sobre-bg { position: absolute; inset: 0; }
+.sobre-fade {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(6,15,13,0.75), rgba(6,15,13,0.88));
 }
 .sobre-inner { position: relative; z-index: 2; max-width: 900px; }
 .sobre .eyebrow { color: var(--brand-glow); justify-content: center; display: flex; }
@@ -290,17 +308,22 @@ nav.main-nav a:hover { color: #fff; }
 .sobre-facts h4 { font-size: 0.95rem; color: var(--brand-glow); margin-bottom: 8px; font-family: "Inter", sans-serif; font-weight: 600; }
 .sobre-facts p { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin: 0; }
 
-/* ============ INSTAGRAM ============ */
-.ig-section { padding: 130px 0; }
-.ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+/* ============ INSTAGRAM — carrossel automático ============ */
+.ig-section { padding: 130px 0 130px; }
+.ig-section .container { margin-bottom: 50px; }
+.ig-carousel { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.ig-track { display: flex; width: max-content; gap: 14px; animation: ig-scroll 40s linear infinite; }
+.ig-carousel:hover .ig-track { animation-play-state: paused; }
+@keyframes ig-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .ig-post {
-  aspect-ratio: 1/1; position: relative; display: block; overflow: hidden;
-  background-color: var(--ink); background-size: cover; background-position: center;
+  position: relative; display: block; overflow: hidden;
+  width: 280px; aspect-ratio: 4/5; border-radius: 14px;
+  background-color: var(--ink); flex-shrink: 0;
 }
-.ig-post img, .ig-post .fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(.2,.8,.2,1); }
-.ig-post:hover img, .ig-post:hover .fill { transform: scale(1.08); }
+.ig-post .full-media-img { transition: transform 0.5s cubic-bezier(.2,.8,.2,1); }
+.ig-post:hover .full-media-img { transform: scale(1.06); }
 .ig-post-overlay {
-  position: absolute; inset: 0; background: rgba(6,15,13,0.4);
+  position: absolute; inset: 0; z-index: 2; background: rgba(6,15,13,0.35);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; transition: opacity 0.25s ease;
 }
@@ -373,26 +396,16 @@ footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padd
   nav.main-nav, .header-ctas { display: none; }
   .nav-toggle { display: flex; align-items: center; justify-content: center; }
 
-  /* Showcase: a versão sticky-scroll é um comportamento de desktop (scroll longo +
-     coluna fixa). No celular isso quebra — a imagem fixa fica acima de todos os 6
-     itens de texto e o visitante nunca vê ela trocar. Em vez disso, cada item ganha
-     sua própria miniatura (via --img, setado inline no HTML), como uma lista de cards. */
-  .showcase { display: block; }
-  .showcase-sticky-col { display: none; }
-  .showcase-item { min-height: auto; padding: 36px 24px; border-top: 1px solid var(--line); }
-  .showcase-item:first-child { border-top: none; }
-  .showcase-item::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 220px;
-    border-radius: var(--radius);
-    background-image: var(--img);
-    background-size: cover;
-    background-position: center;
-    background-color: var(--ink);
-    margin-bottom: 24px;
-  }
+  /* Galeria: abas na lateral viram uma fileira horizontal rolável, e o palco
+     (imagem + texto) empilha em vez de ficar lado a lado. */
+  .gallery-shell { grid-template-columns: 1fr; border-radius: 14px; }
+  .gallery-tablist { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--line); -webkit-overflow-scrolling: touch; }
+  .gallery-tab { flex: 0 0 auto; white-space: nowrap; border-bottom: none; border-right: 1px solid var(--line); padding: 16px 18px; }
+  .gallery-tab::before { left: 0; right: 0; top: auto; bottom: 0; height: 3px; width: auto; transform: scaleX(0); }
+  .gallery-tab.active::before { transform: scaleX(1); }
+  .gallery-stage { grid-template-columns: 1fr; }
+  .gallery-media { min-height: 260px; }
+  .gallery-copy { padding: 30px 24px; }
 
   .dif-row { grid-template-columns: 1fr; min-height: auto; }
   .dif-row:nth-child(even) .dif-media { order: 0; }
@@ -402,7 +415,7 @@ footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padd
   .qa-grid { grid-template-columns: repeat(2, 1fr); }
   .qa-card { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 26px; margin-bottom: 26px; }
 
-  .ig-grid { grid-template-columns: repeat(3, 1fr); }
+  .ig-post { width: 220px; }
   .contato-grid { grid-template-columns: 1fr; gap: 40px; }
   .sobre-facts { gap: 28px; }
   .sobre-facts div { max-width: 100%; }
@@ -426,8 +439,8 @@ footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padd
   .statement p { font-size: clamp(1.35rem, 6vw, 1.7rem); max-width: 100%; }
 
   .quick-answers { padding: 64px 0; }
-  .showcase-intro { padding: 70px 0 30px; }
-  .showcase-outro { padding: 40px 0 70px; }
+  .gallery { padding: 70px 0 50px; }
+  .showcase-outro { padding: 0 0 70px; }
   .diferenciais-intro { padding: 70px 0 10px; }
   .ig-section, .contato { padding: 70px 0; }
   .sobre { min-height: auto; padding: 80px 24px; }
@@ -440,7 +453,9 @@ footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padd
   .dif-media { min-height: 34vh; }
   .dif-copy .n { font-size: 2.3rem; margin-bottom: 12px; }
 
-  .ig-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .gallery-copy { padding: 24px 20px; }
+  .gallery-copy h3 { font-size: 1.25rem; }
+  .ig-post { width: 180px; }
 
   form.orcamento { padding: 24px; }
   form.orcamento .form-row { grid-template-columns: 1fr; gap: 14px; }
