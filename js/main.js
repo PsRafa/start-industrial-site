@@ -186,6 +186,32 @@ if (!prefersReducedMotion) {
 }
 
 // ---------------------------------------------------------------------
+// Formulário de orçamento — monta a mensagem e abre no WhatsApp
+// ---------------------------------------------------------------------
+const formOrcamento = document.getElementById("formOrcamento");
+if (formOrcamento) {
+  formOrcamento.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const val = (id) => document.getElementById(id).value.trim();
+
+    const linhas = [
+      "Olá! Vim pelo site e gostaria de um orçamento:",
+      "",
+      `Nome: ${val("nome")}`
+    ];
+    if (val("empresa")) linhas.push(`Empresa: ${val("empresa")}`);
+    linhas.push(`WhatsApp: ${val("whatsapp")}`);
+    linhas.push(`E-mail: ${val("email")}`);
+    if (val("cidade")) linhas.push(`Cidade/UF: ${val("cidade")}`);
+    linhas.push(`Tipo de sistema: ${val("tipo")}`);
+    if (val("mensagem")) linhas.push("", `Detalhes: ${val("mensagem")}`);
+
+    const texto = encodeURIComponent(linhas.join("\n"));
+    window.open(`https://wa.me/5547991514600?text=${texto}`, "_blank", "noopener");
+  });
+}
+
+// ---------------------------------------------------------------------
 // Marquee — duplica o conteúdo pra loop contínuo sem salto
 // ---------------------------------------------------------------------
 const marquee = document.querySelector(".marquee-track");
