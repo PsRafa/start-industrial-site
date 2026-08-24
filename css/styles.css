@@ -214,9 +214,9 @@ nav.main-nav a:hover { color: #fff; }
 }
 .cf-track { position: relative; width: 100%; height: 100%; }
 .cf-card {
-  position: absolute; top: 50%; left: 50%;
+  position: absolute; top: 0; left: 50%;
   width: 300px; height: 100%;
-  margin-left: -150px; margin-top: 0;
+  margin-left: -150px;
   transform-origin: center center;
   border-radius: 20px; overflow: hidden;
   background: var(--ink);
