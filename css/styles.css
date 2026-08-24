@@ -230,6 +230,7 @@ nav.main-nav a:hover { color: #fff; }
   border-top: 1px solid var(--line);
 }
 .showcase-item:first-child { border-top: none; }
+.showcase-item::before { content: none; }
 .showcase-item .n { font-family: "Sora", sans-serif; font-size: 0.85rem; color: var(--brand); font-weight: 700; margin-bottom: 18px; }
 .showcase-item h3 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin-bottom: 18px; }
 .showcase-item p { color: var(--ink-soft); font-size: 1rem; max-width: 46ch; margin: 0 0 18px; }
@@ -371,25 +372,82 @@ footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padd
 @media (max-width: 980px) {
   nav.main-nav, .header-ctas { display: none; }
   .nav-toggle { display: flex; align-items: center; justify-content: center; }
-  .showcase { grid-template-columns: 1fr; }
-  .showcase-media { position: relative; height: 46vh; top: 0; }
-  .showcase-progress { display: none; }
-  .showcase-item { min-height: auto; padding: 50px 28px; }
+
+  /* Showcase: a versão sticky-scroll é um comportamento de desktop (scroll longo +
+     coluna fixa). No celular isso quebra — a imagem fixa fica acima de todos os 6
+     itens de texto e o visitante nunca vê ela trocar. Em vez disso, cada item ganha
+     sua própria miniatura (via --img, setado inline no HTML), como uma lista de cards. */
+  .showcase { display: block; }
+  .showcase-sticky-col { display: none; }
+  .showcase-item { min-height: auto; padding: 36px 24px; border-top: 1px solid var(--line); }
+  .showcase-item:first-child { border-top: none; }
+  .showcase-item::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 220px;
+    border-radius: var(--radius);
+    background-image: var(--img);
+    background-size: cover;
+    background-position: center;
+    background-color: var(--ink);
+    margin-bottom: 24px;
+  }
+
   .dif-row { grid-template-columns: 1fr; min-height: auto; }
   .dif-row:nth-child(even) .dif-media { order: 0; }
-  .dif-media { min-height: 46vh; }
-  .dif-copy { padding: 44px 28px; }
+  .dif-media { min-height: 42vh; }
+  .dif-copy { padding: 36px 24px; }
+
   .qa-grid { grid-template-columns: repeat(2, 1fr); }
   .qa-card { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 26px; margin-bottom: 26px; }
+
   .ig-grid { grid-template-columns: repeat(3, 1fr); }
-  .contato-grid { grid-template-columns: 1fr; }
-  .sobre-facts { gap: 30px; }
-  .footer-grid { grid-template-columns: 1fr; }
+  .contato-grid { grid-template-columns: 1fr; gap: 40px; }
+  .sobre-facts { gap: 28px; }
+  .sobre-facts div { max-width: 100%; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 }
-@media (max-width: 560px) {
-  .hero-content { padding-bottom: 70px; }
-  .statement, .showcase-intro, .diferenciais-intro, .ig-section, .contato { padding-top: 80px; padding-bottom: 80px; }
-  .qa-grid, .ig-grid { grid-template-columns: repeat(2, 1fr); }
-  form.orcamento .form-row { grid-template-columns: 1fr; }
+
+@media (max-width: 680px) {
+  .container { padding: 0 22px; }
+  :root { --header-h: 72px; }
+
+  .hero { min-height: 100vh; min-height: 100svh; align-items: center; }
+  .hero-content { padding-bottom: 0; }
+  .hero h1 { font-size: clamp(2.1rem, 8vw, 2.7rem); max-width: 13ch; }
+  .hero .lead { font-size: 1.02rem; }
+  .hero-ctas { gap: 18px; margin-top: 30px; }
   .hero-ctas .btn { width: 100%; justify-content: center; }
+  .hero-ctas .link-cta { margin: 0 auto; }
+  .scroll-cue { display: none; }
+
+  .statement { min-height: auto; padding: 70px 24px; }
+  .statement p { font-size: clamp(1.35rem, 6vw, 1.7rem); max-width: 100%; }
+
+  .quick-answers { padding: 64px 0; }
+  .showcase-intro { padding: 70px 0 30px; }
+  .showcase-outro { padding: 40px 0 70px; }
+  .diferenciais-intro { padding: 70px 0 10px; }
+  .ig-section, .contato { padding: 70px 0; }
+  .sobre { min-height: auto; padding: 80px 24px; }
+
+  .section-head.split { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  .qa-grid { grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  .qa-card { padding-right: 0; }
+
+  .dif-media { min-height: 34vh; }
+  .dif-copy .n { font-size: 2.3rem; margin-bottom: 12px; }
+
+  .ig-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+
+  form.orcamento { padding: 24px; }
+  form.orcamento .form-row { grid-template-columns: 1fr; gap: 14px; }
+  .info-card { padding: 18px 20px; }
+
+  .whats-float { width: 52px; height: 52px; right: 16px; bottom: 16px; }
+  .whats-float svg { width: 24px; height: 24px; }
+
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
