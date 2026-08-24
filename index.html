@@ -145,7 +145,7 @@
   </div>
 </section>
 
-<!-- ===================== GALERIA — PRODUTOS (abas) ===================== -->
+<!-- ===================== GALERIA — PRODUTOS (coverflow 3D) ===================== -->
 <section class="gallery" id="showcase">
   <div class="container">
     <div class="section-head split reveal">
@@ -160,10 +160,18 @@
       </a>
     </div>
 
-    <div class="gallery-shell reveal">
-      <div class="gallery-tablist" id="galleryTabs" role="tablist" aria-label="Linhas de produto"></div>
-      <div class="gallery-stage" id="galleryStage"></div>
+    <div class="coverflow reveal" id="coverflow">
+      <button class="cf-arrow cf-prev" id="cfPrev" aria-label="Produto anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="cf-track" id="cfTrack"></div>
+      <button class="cf-arrow cf-next" id="cfNext" aria-label="Próximo produto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
+
+    <div class="cf-dots" id="cfDots"></div>
+    <div class="cf-info" id="cfInfo"></div>
   </div>
 </section>
 

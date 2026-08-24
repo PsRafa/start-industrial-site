@@ -72,48 +72,81 @@ const PRODUTOS = [
 ];
 
 // ---------------------------------------------------------------------
-// Galeria de produtos — abas com imagem inteira (sem cortar)
+// Galeria de produtos — coverflow 3D, imagem inteira sem cortar
 // ---------------------------------------------------------------------
-const galleryTabs = document.getElementById("galleryTabs");
-const galleryStage = document.getElementById("galleryStage");
+const cfTrack = document.getElementById("cfTrack");
+const cfDots = document.getElementById("cfDots");
+const cfInfo = document.getElementById("cfInfo");
+const cfPrev = document.getElementById("cfPrev");
+const cfNext = document.getElementById("cfNext");
 
-function renderGalleryPanel(produto) {
-  galleryStage.innerHTML = `
-    <div class="gallery-media" id="galleryMedia">
+if (cfTrack && cfDots && cfInfo) {
+  let active = 0;
+  const total = PRODUTOS.length;
+
+  const cards = PRODUTOS.map((produto, i) => {
+    const el = document.createElement("div");
+    el.className = "cf-card";
+    el.dataset.index = String(i);
+    el.innerHTML = `
       <div class="full-media-blur" style="background-image:url('${produto.img}')"></div>
       <img class="full-media-img" src="${produto.img}" alt="${produto.nome} — Start Industrial">
-    </div>
-    <div class="gallery-copy" id="galleryCopy">
-      <span class="n">${produto.num} — ${produto.nome}</span>
-      <h3>${produto.titulo}</h3>
-      <p>${produto.desc}</p>
-      <span class="app-label">Aplicações</span>
-      <p class="app-text">${produto.apps}</p>
-    </div>`;
-  requestAnimationFrame(() => {
-    document.getElementById("galleryCopy").classList.add("in");
+      <span class="cf-label">${produto.num} — ${produto.nome}</span>`;
+    el.addEventListener("click", () => goTo(i));
+    cfTrack.appendChild(el);
+    return el;
   });
-}
 
-if (galleryTabs && galleryStage) {
-  PRODUTOS.forEach((produto, i) => {
-    const btn = document.createElement("button");
-    btn.className = "gallery-tab" + (i === 0 ? " active" : "");
-    btn.type = "button";
-    btn.dataset.index = String(i);
-    btn.setAttribute("role", "tab");
-    btn.innerHTML = `<span class="gt-num">${produto.num}</span><span class="gt-name">${produto.nome}</span>`;
-    btn.addEventListener("click", () => {
-      if (btn.classList.contains("active")) return;
-      galleryTabs.querySelectorAll(".gallery-tab").forEach((t) => t.classList.remove("active"));
-      btn.classList.add("active");
-      const media = document.getElementById("galleryMedia");
-      if (media) media.classList.add("fading");
-      setTimeout(() => renderGalleryPanel(produto), 180);
-    });
-    galleryTabs.appendChild(btn);
+  const dots = PRODUTOS.map((_, i) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "dot";
+    dot.setAttribute("aria-label", `Ver produto ${i + 1}`);
+    dot.addEventListener("click", () => goTo(i));
+    cfDots.appendChild(dot);
+    return dot;
   });
-  renderGalleryPanel(PRODUTOS[0]);
+
+  function layout() {
+    cards.forEach((card, i) => {
+      let offset = i - active;
+      if (offset > total / 2) offset -= total;
+      if (offset < -total / 2) offset += total;
+      const abs = Math.abs(offset);
+      card.classList.toggle("active", offset === 0);
+      if (abs > 2) {
+        card.style.opacity = "0";
+        card.style.pointerEvents = "none";
+        card.style.zIndex = "0";
+        return;
+      }
+      card.style.pointerEvents = "auto";
+      card.style.opacity = String(1 - abs * 0.35);
+      card.style.zIndex = String(10 - abs);
+      card.style.transform =
+        `translateX(${offset * 62}%) translateZ(${-abs * 160}px) rotateY(${offset * -32}deg) scale(${1 - abs * 0.16})`;
+    });
+    dots.forEach((dot, i) => dot.classList.toggle("active", i === active));
+    const p = PRODUTOS[active];
+    cfInfo.classList.remove("in");
+    cfInfo.innerHTML = `
+      <span class="n">${p.num} — ${p.nome}</span>
+      <h3>${p.titulo}</h3>
+      <p>${p.desc}</p>
+      <span class="app-label">Aplicações</span>
+      <p class="app-text">${p.apps}</p>`;
+    requestAnimationFrame(() => cfInfo.classList.add("in"));
+  }
+
+  function goTo(i) {
+    active = (i + total) % total;
+    layout();
+  }
+
+  if (cfPrev) cfPrev.addEventListener("click", () => goTo(active - 1));
+  if (cfNext) cfNext.addEventListener("click", () => goTo(active + 1));
+
+  layout();
 }
 
 // ---------------------------------------------------------------------
