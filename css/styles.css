@@ -10,9 +10,20 @@
   --white: #ffffff;
   --radius: 10px;
   --maxw: 1240px;
-  --header-h: 84px;
+  --header-h: 112px;
   font-size: 16px;
 }
+
+/* ---------- Tratamento fotográfico duotone (marca) ----------
+   filter: grayscale+contrast unifica fotos de qualidade/origem variadas; o
+   overlay gradiente (definido em cada componente) é tingido na cor da marca
+   em vez de preto puro. Trocar pela foto real no futuro não exige mexer aqui —
+   o filtro se aplica a qualquer imagem de fundo igual. */
+.photo-duotone { filter: grayscale(0.9) contrast(1.2) brightness(0.82); }
+
+/* ---------- Marca-d'água da estrela (elemento gráfico recorrente) ---------- */
+.star-mark { position: absolute; opacity: 0.06; pointer-events: none; }
+.star-mark svg { width: 100%; height: 100%; display: block; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -36,6 +47,8 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
   margin: 0 0 18px;
 }
+h2 { font-size: clamp(2.1rem, 3.6vw, 3.2rem); }
+h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
 .eyebrow {
   display: block;
   font-size: 0.78rem;
@@ -49,19 +62,29 @@ h1, h2, h3, h4 {
 
 /* ---------- Buttons ---------- */
 .btn {
+  position: relative;
   display: inline-flex; align-items: center; gap: 9px;
-  padding: 16px 30px; border-radius: 999px;
+  padding: 17px 32px; border-radius: 999px;
   font-weight: 600; font-size: 0.95rem; text-decoration: none;
   border: 1.5px solid transparent; cursor: pointer;
-  transition: transform 0.25s cubic-bezier(.2,.8,.2,1), background 0.2s ease, box-shadow 0.25s ease;
+  overflow: hidden; isolation: isolate;
+  transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease, color 0.35s ease;
+}
+.btn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s cubic-bezier(.65,0,.35,1);
 }
 .btn:hover { transform: translateY(-2px); }
+.btn:hover::before { transform: scaleX(1); }
 .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 16px 34px -16px rgba(11,93,84,0.6); }
-.btn-primary:hover { background: #0d6f63; box-shadow: 0 20px 40px -14px rgba(11,93,84,0.7); }
+.btn-primary::before { background: var(--ink); }
+.btn-primary:hover { box-shadow: 0 20px 40px -14px rgba(11,93,84,0.7); }
 .btn-outline { background: transparent; border-color: rgba(255,255,255,0.5); color: #fff; }
-.btn-outline:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+.btn-outline::before { background: #fff; transform-origin: left; }
+.btn-outline:hover { border-color: #fff; color: var(--ink); }
 .btn-dark { background: var(--ink); color: #fff; }
-.btn-dark:hover { background: #1a1f1c; }
+.btn-dark::before { background: var(--brand); }
 
 .link-cta {
   display: inline-flex; align-items: center; gap: 8px;
@@ -81,7 +104,7 @@ h1, h2, h3, h4 {
 }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; height: 100%; }
 .brand { display: flex; align-items: center; text-decoration: none; }
-.brand img { height: 30px; width: auto; transition: filter 0.35s ease; filter: brightness(0) invert(1); }
+.brand img { height: 52px; width: auto; transition: filter 0.35s ease; filter: brightness(0) invert(1); }
 nav.main-nav { display: flex; gap: 34px; }
 nav.main-nav a {
   text-decoration: none; font-weight: 500; font-size: 0.9rem;
@@ -125,10 +148,11 @@ nav.main-nav a:hover { color: #fff; }
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background-image: linear-gradient(180deg, rgba(6,15,13,0.35) 0%, rgba(6,15,13,0.25) 45%, rgba(6,15,13,0.92) 100%), url('../assets/fachada-fabrica.jpeg');
+  background-image: linear-gradient(160deg, rgba(11,93,84,0.5) 0%, rgba(6,15,13,0.55) 45%, rgba(6,15,13,0.95) 100%), url('../assets/fachada-fabrica.jpeg');
   background-size: cover;
   background-position: center 60%;
   animation: kenburns 16s ease-out forwards;
+  filter: grayscale(0.65) contrast(1.15) brightness(0.85);
 }
 @keyframes kenburns {
   from { transform: scale(1.12); }
@@ -137,9 +161,10 @@ nav.main-nav a:hover { color: #fff; }
 .hero-content { position: relative; z-index: 2; padding: 0 0 100px; width: 100%; }
 .hero-content .eyebrow { color: var(--brand-glow); }
 .hero h1 {
-  font-size: clamp(2.6rem, 6vw, 5.2rem);
-  max-width: 16ch;
+  font-size: clamp(2.8rem, 7vw, 6.4rem);
+  max-width: 15ch;
   font-weight: 800;
+  letter-spacing: -0.03em;
 }
 .hero .lead { color: rgba(255,255,255,0.78); font-size: 1.2rem; max-width: 52ch; }
 .hero-ctas { display: flex; align-items: center; gap: 30px; margin-top: 40px; flex-wrap: wrap; }
@@ -157,16 +182,18 @@ nav.main-nav a:hover { color: #fff; }
 
 /* ============ STATEMENT — tela cheia de frase ============ */
 .statement {
+  position: relative; overflow: hidden;
   min-height: 72vh;
   display: flex; align-items: center; justify-content: center;
   text-align: center; padding: 100px 32px;
   background: var(--white);
 }
 .statement p {
+  position: relative; z-index: 2;
   font-family: "Sora", sans-serif;
-  font-size: clamp(1.6rem, 3.4vw, 2.7rem);
+  font-size: clamp(1.8rem, 3.8vw, 3.1rem);
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.32;
   max-width: 20ch;
   color: var(--ink);
   margin: 0;
@@ -209,12 +236,13 @@ nav.main-nav a:hover { color: #fff; }
   background-size: cover; background-position: center;
   opacity: 0;
   transition: opacity 0.6s ease;
+  filter: grayscale(0.85) contrast(1.2) brightness(0.8);
 }
 .showcase-media-layer.active { opacity: 1; }
 .showcase-media::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(6,15,13,0.1), rgba(6,15,13,0.55));
+  background: linear-gradient(165deg, rgba(11,93,84,0.35), rgba(6,15,13,0.7));
 }
 .showcase-progress {
   position: absolute; left: 40px; bottom: 40px; z-index: 3;
@@ -260,8 +288,9 @@ nav.main-nav a:hover { color: #fff; }
   background-size: cover; background-position: center;
   background-color: var(--ink);
   position: relative;
+  filter: grayscale(0.75) contrast(1.15) brightness(0.9);
 }
-.dif-media::after { content: ""; position: absolute; inset: 0; background: rgba(6,15,13,0.18); }
+.dif-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(150deg, rgba(11,93,84,0.4), rgba(6,15,13,0.35)); }
 .dif-copy { padding: 60px 8vw; }
 .dif-copy .n { font-family: "Sora", sans-serif; font-size: 3.2rem; font-weight: 800; color: var(--line); line-height: 1; margin-bottom: 20px; }
 .dif-copy h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
@@ -276,8 +305,9 @@ nav.main-nav a:hover { color: #fff; }
 }
 .sobre-bg {
   position: absolute; inset: 0;
-  background-image: linear-gradient(180deg, rgba(6,15,13,0.75), rgba(6,15,13,0.88)), url('../assets/fachada-fabrica.jpeg');
+  background-image: linear-gradient(180deg, rgba(11,93,84,0.55), rgba(6,15,13,0.9)), url('../assets/fachada-fabrica.jpeg');
   background-size: cover; background-position: center 30%;
+  filter: grayscale(0.6) contrast(1.1);
 }
 .sobre-inner { position: relative; z-index: 2; max-width: 900px; }
 .sobre .eyebrow { color: var(--brand-glow); justify-content: center; display: flex; }
@@ -296,7 +326,10 @@ nav.main-nav a:hover { color: #fff; }
 .ig-post {
   aspect-ratio: 1/1; position: relative; display: block; overflow: hidden;
   background-color: var(--ink); background-size: cover; background-position: center;
+  filter: grayscale(0.55) contrast(1.15) brightness(0.92);
+  transition: filter 0.3s ease;
 }
+.ig-post:hover { filter: grayscale(0) contrast(1.05) brightness(1); }
 .ig-post img, .ig-post .fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(.2,.8,.2,1); }
 .ig-post:hover img, .ig-post:hover .fill { transform: scale(1.08); }
 .ig-post-overlay {
@@ -347,7 +380,7 @@ form.orcamento .btn-primary { width: 100%; justify-content: center; margin-top: 
 .whats-float svg { width: 28px; height: 28px; color: #06332f; }
 
 /* ---------- Footer ---------- */
-footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padding-top: 70px; }
+footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padding-top: 70px; position: relative; overflow: hidden; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .footer-brand img { height: 30px; width: auto; margin-bottom: 16px; filter: brightness(0) invert(1); }
 .footer-brand p { font-size: 0.87rem; max-width: 320px; }
@@ -411,7 +444,8 @@ footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.65); padd
 
 @media (max-width: 680px) {
   .container { padding: 0 22px; }
-  :root { --header-h: 72px; }
+  :root { --header-h: 78px; }
+  .brand img { height: 38px; }
 
   .hero { min-height: 100vh; min-height: 100svh; align-items: center; }
   .hero-content { padding-bottom: 0; }
