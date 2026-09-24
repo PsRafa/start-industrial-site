@@ -23,14 +23,26 @@ mobileNav.querySelectorAll("a").forEach((a) =>
 );
 
 // ---------------------------------------------------------------------
+// Ícones vetoriais próprios por família — identidade gráfica sem
+// depender de fotografia
+// ---------------------------------------------------------------------
+const ICONS = {
+  startflow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="14" width="6" height="8" rx="1"/><rect x="16" y="2" width="6" height="8" rx="1"/><path d="M8 18h5a3 3 0 003-3V9"/><path d="M13 6l3 3 3-3"/></svg>`,
+  startpress: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 13L16 8"/><path d="M8 13a4 4 0 018 0"/><path d="M12 3v2M4 13H2M22 13h-2"/></svg>`,
+  startfire: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c4 0 6-3 6-6.5 0-2-1-3.5-2-5 0 2-1 3-2 2 .5-3-1-5-3-6.5-.5 3-2 4-3 6-1.5 2-2 3.5-2 5.5C6 18 8 21 12 21z"/></svg>`,
+  startdrain: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg>`,
+  construction: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-6 8 6v12"/><path d="M4 21h16M9 21v-6h6v6"/></svg>`
+};
+
+// ---------------------------------------------------------------------
 // Dados — extraídos do catálogo oficial (Catálogo Start Industrial 2026)
 // ---------------------------------------------------------------------
 const FAMILIAS = [
-  { slug: "startflow", nome: "StartFlow", funcao: "Repõe água em reservatórios. Comando por nível.", count: 3, img: "assets/produtos/sistemas-recalque.jpeg" },
-  { slug: "startpress", nome: "StartPress", funcao: "Acompanha o consumo e controla a pressão da rede.", count: 3, img: "assets/produtos/pressurizacao-direta-indireta.jpeg" },
-  { slug: "startfire", nome: "StartFire", funcao: "Atende à demanda da rede preventiva de incêndio.", count: 2, img: "assets/produtos/combate-incendio.jpeg" },
-  { slug: "startdrain", nome: "StartDrain", funcao: "Retira líquido acumulado. A versão ETE bombeia efluentes.", count: 2, img: "assets/produtos/estacoes-elevatorias.jpeg" },
-  { slug: "construction", nome: "Construction", funcao: "Pressuriza a rede provisória da obra.", count: 1, img: "assets/produtos/pressurizadores-obra.jpeg" }
+  { slug: "startflow", nome: "StartFlow", funcao: "Repõe água em reservatórios. Comando por nível.", count: 3 },
+  { slug: "startpress", nome: "StartPress", funcao: "Acompanha o consumo e controla a pressão da rede.", count: 3 },
+  { slug: "startfire", nome: "StartFire", funcao: "Atende à demanda da rede preventiva de incêndio.", count: 2 },
+  { slug: "startdrain", nome: "StartDrain", funcao: "Retira líquido acumulado. A versão ETE bombeia efluentes.", count: 2 },
+  { slug: "construction", nome: "Construction", funcao: "Pressuriza a rede provisória da obra.", count: 1 }
 ];
 
 const PRODUTOS = [
@@ -168,10 +180,7 @@ if (familiasGrid) {
   familiasGrid.innerHTML = FAMILIAS.map(
     (f) => `
     <div class="familia-card" data-familia="${f.slug}">
-      <div class="familia-thumb">
-        <div class="full-media-blur" style="background-image:url('${f.img}')"></div>
-        <img class="full-media-img" src="${f.img}" alt="${f.nome}">
-      </div>
+      <div class="familia-icon">${ICONS[f.slug]}</div>
       <span class="familia-count">${f.count} sistema${f.count > 1 ? "s" : ""}</span>
       <h3>${f.nome}</h3>
       <p>${f.funcao}</p>
@@ -224,9 +233,8 @@ function renderList(filterSlug) {
       </button>
       <div class="produto-panel">
         <div class="produto-panel-inner">
-          <div class="produto-thumb">
-            <div class="full-media-blur" style="background-image:url('${p.img}')"></div>
-            <img class="full-media-img" src="${p.img}" alt="${p.nome}">
+          <div class="produto-icon-wrap">
+            <div class="produto-icon">${ICONS[p.familia]}</div>
           </div>
           <div class="produto-body">
             <p class="overview">${p.overview}</p>
@@ -271,19 +279,24 @@ if (selecaoBody) {
 }
 
 // ---------------------------------------------------------------------
-// Instagram — carrossel automático com as fotos reais, imagem inteira
+// Instagram — grade de tiles com a identidade gráfica (ícones das
+// famílias), sem depender de fotografia
 // ---------------------------------------------------------------------
-const igTrack = document.getElementById("igTrack");
-if (igTrack) {
-  const igImgs = FAMILIAS.map((f) => f.img);
-  const igCard = (img, i) => `
+const igGrid = document.getElementById("igGrid");
+if (igGrid) {
+  const slugs = [
+    "startflow", "startpress", "startfire", "startdrain", "construction",
+    "startflow", "startpress", "startfire", "startdrain", "construction", "startflow", "startpress"
+  ];
+  igGrid.innerHTML = slugs
+    .map(
+      (slug) => `
     <a href="https://www.instagram.com/start.industrial/" target="_blank" rel="noopener" class="ig-post">
-      <div class="full-media-blur" style="background-image:url('${img}')"></div>
-      <img class="full-media-img" src="${img}" alt="Start Industrial — @start.industrial">
+      <span class="ig-icon">${ICONS[slug]}</span>
       <span class="ig-post-overlay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.4.42.6.24 1 .5 1.5 1s.76.9 1 1.5c.17.4.36 1.2.42 2.4.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.4a4 4 0 01-1 1.5 4 4 0 01-1.5 1c-.4.17-1.2.36-2.4.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.4-.42a4 4 0 01-1.5-1 4 4 0 01-1-1.5c-.17-.4-.36-1.2-.42-2.4C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.4a4 4 0 011-1.5 4 4 0 011.5-1c.4-.17 1.2-.36 2.4-.42C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.07-.97.04-1.5.2-1.85.34-.46.18-.8.4-1.15.74-.34.35-.56.69-.74 1.15-.14.35-.3.88-.34 1.85C3.1 8.48 3.1 8.85 3.1 12s0 3.52.06 4.76c.05.97.2 1.5.34 1.85.18.46.4.8.74 1.15.35.34.69.56 1.15.74.35.14.88.3 1.85.34C8.48 20.9 8.85 20.9 12 20.9s3.52 0 4.76-.06c.97-.05 1.5-.2 1.85-.34.46-.18.8-.4 1.15-.74.34-.35.56-.69.74-1.15.14-.35.3-.88.34-1.85.06-1.24.06-1.61.06-4.76s0-3.52-.06-4.76c-.05-.97-.2-1.5-.34-1.85a3 3 0 00-.74-1.15 3 3 0 00-1.15-.74c-.35-.14-.88-.3-1.85-.34C15.52 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 1.8a2.8 2.8 0 100 5.6 2.8 2.8 0 000-5.6zm4.8-2a1.08 1.08 0 110 2.16 1.08 1.08 0 010-2.16z"/></svg></span>
-    </a>`;
-  const cards = igImgs.map(igCard).join("");
-  igTrack.innerHTML = cards + cards;
+    </a>`
+    )
+    .join("");
 }
 
 // ---------------------------------------------------------------------
@@ -302,8 +315,9 @@ if (!prefersReducedMotion) {
     { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
   );
   document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+  setTimeout(() => document.querySelectorAll(".draw-path").forEach((el) => el.classList.add("in-view")), 300);
 } else {
-  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in-view"));
+  document.querySelectorAll(".reveal, .draw-path").forEach((el) => el.classList.add("in-view"));
 }
 
 // ---------------------------------------------------------------------
