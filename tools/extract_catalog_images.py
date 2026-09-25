@@ -1,8 +1,8 @@
 import fitz
 import os
 
-src = r"C:\Users\TJ - App\Downloads\Catalogo-Start-Industrial (1).pdf"
-out_dir = r"C:\src\start-industrial-site\assets\produtos"
+src = r"C:\Users\TJ - App\Downloads\Catálogo Start Industrial 2026 (1).pdf"
+out_dir = r"C:\src\start-industrial-site\assets\produtos2026"
 os.makedirs(out_dir, exist_ok=True)
 
 doc = fitz.open(src)
