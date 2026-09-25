@@ -188,10 +188,12 @@ if (familiasGrid) {
 }
 
 // ---------------------------------------------------------------------
-// Catálogo — abas por família + lista técnica em acordeão
+// Catálogo — abas por família + grade de produtos com foto grande;
+// clique abre um painel de detalhes (modal), não uma tabela achatada
 // ---------------------------------------------------------------------
 const catalogoTabs = document.getElementById("catalogoTabs");
-const produtoList = document.getElementById("produtoList");
+const produtoGrid = document.getElementById("produtoGrid");
+const produtoModalOverlay = document.getElementById("produtoModalOverlay");
 
 function renderTabs(activeSlug) {
   const all = [{ slug: "todos", nome: "Todos" }, ...FAMILIAS];
@@ -204,64 +206,85 @@ function renderTabs(activeSlug) {
   catalogoTabs.querySelectorAll(".catalogo-tab").forEach((btn) => {
     btn.addEventListener("click", () => {
       renderTabs(btn.dataset.familia);
-      renderList(btn.dataset.familia);
+      renderGrid(btn.dataset.familia);
     });
   });
 }
 
-function renderList(filterSlug) {
+function renderGrid(filterSlug) {
   const list = filterSlug === "todos" ? PRODUTOS : PRODUTOS.filter((p) => p.familia === filterSlug);
-  produtoList.innerHTML = list
+  produtoGrid.innerHTML = list
     .map(
       (p) => `
-    <div class="produto-row" data-num="${p.num}">
-      <button class="produto-row-head">
-        <span class="produto-num">${p.num}</span>
-        <span class="produto-thumb-mini"><img src="${p.img}" alt="" loading="lazy"></span>
-        <span class="produto-name-wrap">
-          <span class="produto-name">${p.nome}</span>
-          <span class="produto-tagline">${p.subtitulo}</span>
-        </span>
-        <span class="produto-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
-      </button>
-      <div class="produto-panel">
-        <div class="produto-panel-inner">
-          <div class="produto-photo">
-            <img src="${p.img}" alt="${p.nome} — Start Industrial" loading="lazy">
-          </div>
-          <div class="produto-body">
-            <p class="overview">${p.overview}</p>
-            <p class="op-label">Operação</p>
-            <p class="op-text">${p.operacao}</p>
-            <dl class="spec-table">
-              ${p.dados.map(([k, v]) => `<div class="spec-row"><dt>${k}</dt><dd>${v}</dd></div>`).join("")}
-            </dl>
-            <p class="produto-app-label">Aplicação</p>
-            <p class="produto-app-text">${p.aplicacao}</p>
-            <p class="produto-note">${p.nota}</p>
-          </div>
-        </div>
+    <button type="button" class="produto-card" data-num="${p.num}">
+      <div class="produto-card-img">
+        <span class="produto-card-tag">${p.num}</span>
+        <img src="${p.img}" alt="${p.nome} — Start Industrial" loading="lazy">
       </div>
-    </div>`
+      <div class="produto-card-body">
+        <h3>${p.nome}</h3>
+        <p class="produto-tagline">${p.subtitulo}</p>
+        <span class="produto-card-more">Ver detalhes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </button>`
     )
     .join("");
 
-  produtoList.querySelectorAll(".produto-row-head").forEach((head) => {
-    head.addEventListener("click", () => {
-      const row = head.closest(".produto-row");
-      const wasOpen = row.classList.contains("open");
-      produtoList.querySelectorAll(".produto-row.open").forEach((r) => r.classList.remove("open"));
-      if (!wasOpen) row.classList.add("open");
+  produtoGrid.querySelectorAll(".produto-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const p = PRODUTOS.find((x) => x.num === card.dataset.num);
+      if (p) openProdutoModal(p);
     });
   });
 }
 
-if (catalogoTabs && produtoList) {
+function openProdutoModal(p) {
+  if (!produtoModalOverlay) return;
+  produtoModalOverlay.innerHTML = `
+    <div class="produto-modal">
+      <button class="produto-modal-close" id="produtoModalClose" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="produto-modal-photo"><img src="${p.img}" alt="${p.nome} — Start Industrial"></div>
+      <div class="produto-modal-body">
+        <span class="n">${p.num} — ${p.subtitulo}</span>
+        <h3>${p.nome}</h3>
+        <p class="overview">${p.overview}</p>
+        <p class="op-label">Operação</p>
+        <p class="op-text">${p.operacao}</p>
+        <dl class="spec-table">
+          ${p.dados.map(([k, v]) => `<div class="spec-row"><dt>${k}</dt><dd>${v}</dd></div>`).join("")}
+        </dl>
+        <p class="produto-app-label">Aplicação</p>
+        <p class="produto-app-text">${p.aplicacao}</p>
+        <p class="produto-note">${p.nota}</p>
+        <a class="btn btn-primary produto-modal-cta" href="contato.html">Solicitar orçamento deste sistema</a>
+      </div>
+    </div>`;
+  produtoModalOverlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("produtoModalClose").addEventListener("click", closeProdutoModal);
+}
+function closeProdutoModal() {
+  if (!produtoModalOverlay) return;
+  produtoModalOverlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+if (produtoModalOverlay) {
+  produtoModalOverlay.addEventListener("click", (e) => {
+    if (e.target === produtoModalOverlay) closeProdutoModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeProdutoModal();
+  });
+}
+
+if (catalogoTabs && produtoGrid) {
   const params = new URLSearchParams(location.search);
   const familiaParam = params.get("familia");
   const startSlug = familiaParam && FAMILIAS.some((f) => f.slug === familiaParam) ? familiaParam : "todos";
   renderTabs(startSlug);
-  renderList(startSlug);
+  renderGrid(startSlug);
   if (startSlug !== "todos") {
     document.getElementById("produtos")?.scrollIntoView({ behavior: "instant" });
   }
