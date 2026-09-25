@@ -169,7 +169,7 @@ if (familiasGrid) {
   familiasGrid.innerHTML = FAMILIAS.map(
     (f) => `
     <button type="button" class="familia-teaser" data-familia="${f.slug}" style="text-align:left;border:none;font:inherit;cursor:pointer;">
-      <div class="familia-teaser-img"><img src="${f.img}" alt="${f.nome}" loading="lazy"></div>
+      <div class="familia-teaser-img"><img src="${f.img}" alt="${f.nome}"></div>
       <div class="familia-teaser-body">
         <span class="familia-count">${f.count} sistema${f.count > 1 ? "s" : ""}</span>
         <h3>${f.nome}</h3>
@@ -219,7 +219,7 @@ function renderGrid(filterSlug) {
     <button type="button" class="produto-card" data-num="${p.num}">
       <div class="produto-card-img">
         <span class="produto-card-tag">${p.num}</span>
-        <img src="${p.img}" alt="${p.nome} — Start Industrial" loading="lazy">
+        <img src="${p.img}" alt="${p.nome} — Start Industrial">
       </div>
       <div class="produto-card-body">
         <h3>${p.nome}</h3>
@@ -300,26 +300,9 @@ if (selecaoBody) {
   ).join("");
 }
 
-// ---------------------------------------------------------------------
-// Revelação suave ao rolar
-// ---------------------------------------------------------------------
-if (!prefersReducedMotion) {
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
-  );
-  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
-  setTimeout(() => document.querySelectorAll(".draw-path").forEach((el) => el.classList.add("in-view")), 300);
-} else {
-  document.querySelectorAll(".reveal, .draw-path").forEach((el) => el.classList.add("in-view"));
-}
+// A animação "aparece ao rolar" foi removida (ver comentário no CSS) —
+// causava seções inteiras em branco quando o IntersectionObserver não
+// disparava a tempo. Conteúdo agora é sempre visível por padrão.
 
 // ---------------------------------------------------------------------
 // Formulário de orçamento — monta a mensagem e abre no WhatsApp
