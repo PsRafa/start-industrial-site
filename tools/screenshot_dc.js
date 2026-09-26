@@ -11,7 +11,7 @@ fs.mkdirSync(OUT, { recursive: true });
   page.on('pageerror', (err) => errors.push('pageerror: ' + err.message));
   page.on('requestfailed', (req) => errors.push('requestfailed: ' + req.url() + ' — ' + req.failure()?.errorText));
   page.on('response', (res) => { if (res.status() >= 400) errors.push('HTTP ' + res.status() + ': ' + res.url()); });
-  await page.goto('http://localhost:8802/', { waitUntil: 'networkidle', timeout: 30000 });
+  await page.goto('https://psrafa.github.io/start-industrial-site/', { waitUntil: 'networkidle', timeout: 30000 });
   await page.waitForTimeout(3500); // da tempo do React/Babel do CDN carregarem e montarem
   await page.screenshot({ path: `${OUT}\\dc_no_scroll.png`, fullPage: true });
   console.log('saved dc_no_scroll.png');

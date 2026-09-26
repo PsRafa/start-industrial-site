@@ -34,13 +34,16 @@ a:hover{color:#1d7a70}
 @keyframes si-panel{from{transform:translateY(40px) scale(.98);opacity:0}to{transform:none;opacity:1}}
 @keyframes si-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}100%{box-shadow:0 0 0 18px rgba(37,211,102,0)}}
 @keyframes si-spin{to{transform:rotate(360deg)}}
+.brand-logo{height:46px;display:block}
+@media (max-width:640px){.brand-logo{height:34px}}
+@media (max-width:380px){.wa-label{display:none}.wa-pill{padding:11px!important}}
 </style>
 </helmet>
 
 <div ref="{{ progressRef }}" style="position:fixed;top:0;left:0;height:3px;width:0;background:#5fc2a8;z-index:200"></div>
 
 <header ref="{{ navRef }}" style="position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 28px));z-index:100;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px 10px 20px;border-radius:999px;background:rgba(6,42,39,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);transition:background .4s, padding .4s;box-sizing:border-box">
-  <a href="#topo" style="display:flex;align-items:center"><img src="assets/logo-white.png" alt="Start Industrial" style="height:34px;display:block"></a>
+  <a href="#topo" style="display:flex;align-items:center"><img src="assets/logo-white.png" alt="Start Industrial" class="brand-logo"></a>
   <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
     <nav style="display:flex;gap:4px">
       <a href="#familias" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Famílias</a>
@@ -50,10 +53,28 @@ a:hover{color:#1d7a70}
       <a href="#contato" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Contato</a>
     </nav>
   </sc-if>
-  <a href="{{ waLink }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;background:#5fc2a8;color:#062a27;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;transition:transform .25s, background .25s;white-space:nowrap" style-hover="transform:scale(1.05);background:#fff;color:#062a27">
-    <span style="width:22px;height:22px;border-radius:50%;background:#062a27;display:flex;align-items:center;justify-content:center"><img src="assets/whatsapp.svg" alt="" style="width:13px;height:13px"></span>WhatsApp
-  </a>
+  <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+    <a href="{{ waLink }}" target="_blank" rel="noopener" class="wa-pill" style="display:flex;align-items:center;gap:10px;background:#5fc2a8;color:#062a27;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;transition:transform .25s, background .25s;white-space:nowrap" style-hover="transform:scale(1.05);background:#fff;color:#062a27">
+      <span style="width:22px;height:22px;border-radius:50%;background:#062a27;display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/whatsapp.svg" alt="" style="width:13px;height:13px"></span><span class="wa-label">WhatsApp</span>
+    </a>
+    <sc-if value="{{ !desktop }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Abrir menu" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;flex-shrink:0;font-family:inherit">
+        <sc-if value="{{ !menuOpen }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></sc-if>
+        <sc-if value="{{ menuOpen }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></sc-if>
+      </button>
+    </sc-if>
+  </div>
 </header>
+
+<sc-if value="{{ menuOpen }}">
+  <nav style="position:fixed;top:78px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 28px));z-index:99;display:flex;flex-direction:column;gap:2px;padding:12px;border-radius:24px;background:rgba(6,42,39,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);animation:si-fade .25s ease both">
+    <a href="#familias" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Famílias</a>
+    <a href="#sistemas" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Sistemas</a>
+    <a href="#selecao" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Seleção</a>
+    <a href="#empresa" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">A empresa</a>
+    <a href="#contato" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Contato</a>
+  </nav>
+</sc-if>
 
 <section id="topo" data-screen-label="Hero" style="position:relative;min-height:100vh;background:#062a27;color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:140px clamp(20px,4vw,56px) 48px;box-sizing:border-box">
   <img ref="{{ starRef }}" src="assets/star-white.png" alt="" style="position:absolute;right:-12vw;top:-8vh;width:min(78vw,980px);opacity:.06;pointer-events:none;will-change:transform">
@@ -330,7 +351,7 @@ a:hover{color:#1d7a70}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { filter: 'Todos', open: null, desktop: true };
+  state = { filter: 'Todos', open: null, desktop: true, menuOpen: false };
   progressRef = React.createRef(); navRef = React.createRef(); starRef = React.createRef(); star2Ref = React.createRef();
   pinRef = React.createRef(); stickyRef = React.createRef(); trackRef = React.createRef(); pinBarRef = React.createRef(); wordsRef = React.createRef();
   wa = 'https://wa.me/5547991514600';
@@ -464,7 +485,7 @@ class Component extends DCLogic {
   }
   onResize() {
     const desktop = window.innerWidth >= 900;
-    if (desktop !== this.state.desktop) this.setState({ desktop });
+    if (desktop !== this.state.desktop) this.setState({ desktop, menuOpen: desktop ? false : this.state.menuOpen });
     const o = this.pinRef.current, s = this.stickyRef.current, t = this.trackRef.current;
     if (o && s && t) {
       if (desktop) {
@@ -516,14 +537,19 @@ class Component extends DCLogic {
     if (scroll) { const el = this.pinRef.current; if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' }); }
   }
   waFor(name) { return this.wa + '?text=' + encodeURIComponent(`Olá! Gostaria de informações sobre o ${name}.`); }
+  toggleMenu() { this.setState(s => ({ menuOpen: !s.menuOpen })); }
+  closeMenu() { this.setState({ menuOpen: false }); }
 
   renderVals() {
-    const { filter, open, desktop } = this.state;
+    const { filter, open, desktop, menuOpen } = this.state;
     const shown = this.prods.map((p, i) => ({ ...p, i })).filter(p => filter === 'Todos' || p.fam === filter);
     const labels = ['Todos', ...this.fams.map(f => f.key)];
     const cur = open != null ? this.prods[open] : null;
     return {
       desktop,
+      menuOpen,
+      toggleMenu: () => this.toggleMenu(),
+      closeMenu: () => this.closeMenu(),
       waLink: this.wa + '?text=' + encodeURIComponent('Olá! Vim pelo site e gostaria de falar com o comercial da Start Industrial.'),
       marquee: [...Array(2)].flatMap(() => ['StartFlow', 'StartPress', 'StartFire', 'StartDrain', 'Construction']),
       fams: this.fams.map((f, i) => ({ ...f, idx: '0' + (i + 1), delay: i * 90, go: () => this.setFilter(f.key, true) })),
