@@ -6,10 +6,10 @@ famílias de produto, carrossel horizontal com "pin" nos 11 sistemas, tabela de 
 aplicação, seção institucional com parallax e revelação de palavras, e contato direto por
 WhatsApp.
 
-**Origem**: este site foi desenhado no [Claude Design](https://claude.ai) (canvas `.dc.html`)
-e exportado como site estático. `index.html` contém o template + a lógica do componente;
-`support.js` é o runtime gerado pela plataforma (**não editar à mão** — ele carrega
-React/ReactDOM/Babel do CDN unpkg.com em tempo de execução pra interpretar o componente).
+**Origem**: este site foi desenhado numa ferramenta visual de design e exportado como site
+estático. `index.html` contém o template + a lógica do componente; `support.js` é o runtime
+gerado pela plataforma (**não editar à mão** — ele carrega React/ReactDOM/Babel do CDN
+unpkg.com em tempo de execução pra interpretar o componente).
 
 ## Como ver localmente
 
@@ -34,7 +34,7 @@ GitHub Pages já está ativo (branch `main`, pasta raiz) — publica sozinho a c
 
 ```
 index.html                    template + dados dos 11 produtos/5 famílias (editar aqui)
-support.js                    runtime do Claude Design — gerado, não editar à mão
+support.js                    runtime gerado pela ferramenta de design — não editar à mão
 assets/logo.png / logo-white.png    logo oficial (versão escura e branca)
 assets/star.png / star-white.png    marca-d'água da estrela
 assets/produtos/*.png         fotos reais de produto (fundo transparente)
@@ -61,7 +61,7 @@ node tools/screenshot_dc.js       # noutro — tira print desktop com/sem rolar,
 node tools/screenshot_dc_mobile.js   # print mobile
 ```
 
-Os prints vão pra pasta indicada no topo de cada script. Olhar os dois (`dc_no_scroll.png`
+Os prints vão pra `tools/shots/`. Olhar os dois (`dc_no_scroll.png`
 e `dc_after_scroll.png`) — o espaço em branco grande no meio do `dc_no_scroll.png` é
 esperado (é a "pista" de rolagem do carrossel com pin) e só desaparece depois de rolar de
 verdade, o que é normal pra essa técnica.
@@ -69,8 +69,7 @@ verdade, o que é normal pra essa técnica.
 ## Pendências / pontos de atenção
 
 - [ ] O footer do design atual **não linka** a Política de Privacidade nem o catálogo em
-      PDF. Se quiser esses links visíveis no site, pedir ajuste no Claude Design (canvas
-      original) ou editar `index.html` diretamente.
+      PDF. Se quiser esses links visíveis no site, editar `index.html` diretamente.
 - [ ] Console do navegador mostra um erro não-fatal (`TypeError` em `componentDidUpdate`,
       "reading 'filter'") vindo do runtime `support.js` durante a transição de streaming —
       não afeta o que é renderizado (testado com Playwright, com e sem rolagem), mas é do

@@ -1,6 +1,6 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
-const OUT = 'C:\\Users\\TJ-APP~1\\AppData\\Local\\Temp\\claude\\d--src-trampo-ja-backup\\c5d24138-89c9-4809-8de4-4a45a7469203\\scratchpad\\shots';
+const OUT = require('path').join(__dirname, 'shots');
 fs.mkdirSync(OUT, { recursive: true });
 
 (async () => {
