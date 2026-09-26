@@ -3,6 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- O runtime carrega React, ReactDOM e Babel do CDN em sequência (um espera
+     o outro terminar antes de começar). Isso faz o site demorar vários
+     segundos pra ficar interativo, principalmente em conexão de celular.
+     Os preloads abaixo mandam o navegador buscar os três em paralelo desde
+     o início — quando o runtime pedir o mesmo arquivo depois, ele já está
+     baixado/baixando, cortando essa fila sequencial. Não altera support.js. -->
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preload" as="script" href="https://unpkg.com/react@18.3.1/umd/react.production.min.js">
+<link rel="preload" as="script" href="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js">
+<link rel="preload" as="script" href="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -205,10 +215,10 @@ a:hover{color:#1d7a70}
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
           <sc-if value="{{ c.active }}">
-            <button onClick="{{ c.go }}" style="font-family:inherit;font-size:14px;font-weight:700;padding:11px 18px;border-radius:999px;border:1px solid #0b5b56;background:#0b5b56;color:#fff;cursor:pointer">{{ c.label }}</button>
+            <button onClick="{{ c.go }}" style="font-family:inherit;font-size:14px;font-weight:700;padding:13px 18px;border-radius:999px;border:1px solid #0b5b56;background:#0b5b56;color:#fff;cursor:pointer">{{ c.label }}</button>
           </sc-if>
           <sc-if value="{{ c.idle }}">
-            <button onClick="{{ c.go }}" style="font-family:inherit;font-size:14px;font-weight:600;padding:11px 18px;border-radius:999px;border:1px solid rgba(11,91,86,.35);background:transparent;color:#0b5b56;cursor:pointer;transition:background .25s" style-hover="background:rgba(11,91,86,.1)">{{ c.label }}</button>
+            <button onClick="{{ c.go }}" style="font-family:inherit;font-size:14px;font-weight:600;padding:13px 18px;border-radius:999px;border:1px solid rgba(11,91,86,.35);background:transparent;color:#0b5b56;cursor:pointer;transition:background .25s" style-hover="background:rgba(11,91,86,.1)">{{ c.label }}</button>
           </sc-if>
         </sc-for>
       </div>
