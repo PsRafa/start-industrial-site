@@ -34,8 +34,8 @@ a:hover{color:#1d7a70}
 @keyframes si-panel{from{transform:translateY(40px) scale(.98);opacity:0}to{transform:none;opacity:1}}
 @keyframes si-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}100%{box-shadow:0 0 0 18px rgba(37,211,102,0)}}
 @keyframes si-spin{to{transform:rotate(360deg)}}
-.brand-logo{height:46px;display:block}
-@media (max-width:640px){.brand-logo{height:34px}}
+.brand-logo-full{height:38px;display:block}
+.brand-logo-icon{height:36px;display:block}
 @media (max-width:380px){.wa-label{display:none}.wa-pill{padding:11px!important}}
 </style>
 </helmet>
@@ -43,7 +43,10 @@ a:hover{color:#1d7a70}
 <div ref="{{ progressRef }}" style="position:fixed;top:0;left:0;height:3px;width:0;background:#5fc2a8;z-index:200"></div>
 
 <header ref="{{ navRef }}" style="position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 28px));z-index:100;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px 10px 20px;border-radius:999px;background:rgba(6,42,39,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);transition:background .4s, padding .4s;box-sizing:border-box">
-  <a href="#topo" style="display:flex;align-items:center"><img src="assets/logo-white.png" alt="Start Industrial" class="brand-logo"></a>
+  <a href="#topo" style="display:flex;align-items:center">
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}"><img src="assets/logo-horizontal-white.png" alt="Start Industrial" class="brand-logo-full"></sc-if>
+    <sc-if value="{{ !desktop }}"><img src="assets/star-white.png" alt="Start Industrial" class="brand-logo-icon"></sc-if>
+  </a>
   <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
     <nav style="display:flex;gap:4px">
       <a href="#familias" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Famílias</a>
