@@ -61,8 +61,8 @@
    essa regra, se o CDN falhar/demorar, o visitante fica vendo o HTML cru
    com um modal "aberto" que nao fecha (sem JS pra processar o clique). */
 x-dc{display:none}
-html{scroll-behavior:smooth}
-body{margin:0;background:#062a27;color:#0e1a19;font-family:'Archivo',Helvetica,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:#062a27;color:#0e1a19;font-family:'Archivo',Helvetica,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;max-width:100vw}
 a{color:#0b5b56;text-decoration:none}
 a:hover{color:#1d7a70}
 ::selection{background:#0b5b56;color:#fff}
@@ -173,7 +173,7 @@ a:hover{color:#1d7a70}
   </div>
 </div>
 
-<section id="familias" data-screen-label="Famílias" style="background:#f4f3ee;padding:clamp(80px,12vw,160px) clamp(20px,4vw,56px)">
+<section id="familias" data-screen-label="Famílias" style="background:#f4f3ee;padding:clamp(120px,12vw,160px) clamp(20px,4vw,56px)">
   <div style="max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:56px">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
       <div style="display:flex;flex-direction:column;gap:20px;max-width:900px">
@@ -252,7 +252,7 @@ a:hover{color:#1d7a70}
   </div>
 </section>
 
-<section id="selecao" data-screen-label="Seleção" style="background:#062a27;color:#fff;padding:clamp(80px,12vw,160px) clamp(20px,4vw,56px)">
+<section id="selecao" data-screen-label="Seleção" style="background:#062a27;color:#fff;padding:clamp(120px,12vw,160px) clamp(20px,4vw,56px)">
   <div style="max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:48px">
     <div style="display:flex;flex-direction:column;gap:20px">
       <div data-reveal="up" style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:#5fc2a8">Referência</div>
@@ -283,7 +283,7 @@ a:hover{color:#1d7a70}
   </div>
 </section>
 
-<section id="empresa" data-screen-label="A empresa" style="background:#f4f3ee;padding:clamp(80px,12vw,160px) clamp(20px,4vw,56px)">
+<section id="empresa" data-screen-label="A empresa" style="background:#f4f3ee;padding:clamp(120px,12vw,160px) clamp(20px,4vw,56px)">
   <div style="max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(56px,8vw,110px)">
     <div style="display:flex;flex-direction:column;gap:28px">
       <div data-reveal="up" style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:#0b5b56">A Start Industrial</div>
