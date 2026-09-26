@@ -1,13 +1,19 @@
-# Start Industrial — Landing Page Institucional
+# Start Industrial — Landing Page
 
-Site institucional estático (HTML/CSS/JS puro, sem build, sem custo) para a Start Industrial —
-bombas e sistemas hidráulicos industriais. Feito para evoluir depois em direção a um portal
-maior (CRM, BIM, acesso de vendedores, ERP), então a estrutura foi mantida simples e modular
-de propósito.
+Site institucional da Start Industrial (sistemas de motobombas e painéis de comando,
+Itajaí/SC). Uma página só, com scroll storytelling — headline em máscara animada, cinco
+famílias de produto, carrossel horizontal com "pin" nos 11 sistemas, tabela de seleção por
+aplicação, seção institucional com parallax e revelação de palavras, e contato direto por
+WhatsApp.
+
+**Origem**: este site foi desenhado no [Claude Design](https://claude.ai) (canvas `.dc.html`)
+e exportado como site estático. `index.html` contém o template + a lógica do componente;
+`support.js` é o runtime gerado pela plataforma (**não editar à mão** — ele carrega
+React/ReactDOM/Babel do CDN unpkg.com em tempo de execução pra interpretar o componente).
 
 ## Como ver localmente
 
-Só abrir `index.html` no navegador, ou rodar um servidor estático simples:
+Precisa de um servidor (não abre direto como `file://`, porque busca `support.js` via fetch):
 
 ```
 npx serve .
@@ -21,64 +27,59 @@ git commit -m "..."
 git push origin main
 ```
 
-O GitHub Pages já está ativo neste repo (branch `main`, pasta raiz) — publica automaticamente
-a cada push em: **https://psrafa.github.io/start-industrial-site/**
-
-## ⚠️ Pendências reais (o que ainda precisa de confirmação sua)
-
-- [ ] **Confirmar e-mail comercial**: usei `contato@startindustrial.com.br` (baseado no
-      domínio real do catálogo) no formulário, na página de contato e na política de
-      privacidade. Se a caixa certa for outra, me fala que eu troco em tudo de uma vez.
-- [ ] **Ativar o FormSubmit**: na primeira submissão do formulário, o FormSubmit.co manda
-      um e-mail de confirmação pra `contato@startindustrial.com.br` — alguém precisa clicar
-      no link de ativação uma vez, senão os envios seguintes não chegam.
-- [ ] **Fotos de obra "ao vivo"** (não só produto de catálogo) — a seção Instagram usa as
-      fotos de produto do catálogo por enquanto. Se quiser fotos reais de obras/instalações
-      lá, é só mandar.
-- [ ] **Horário de atendimento** no cartão de contato — ainda placeholder ("Seg a sex, 8h
-      às 18h"), ajusta se for diferente.
-- [ ] **CNPJ** — não estava no catálogo, não incluí no rodapé. Manda se quiser que apareça.
-- [ ] **Política de Privacidade** — texto-base de LGPD, ainda precisa de revisão jurídica
-      antes de publicar como documento oficial.
-
-## O que já é 100% real (veio do catálogo em PDF)
-
-- Logo oficial (`assets/start_ind.png`, extraído dos arquivos que você mandou)
-- Telefone/WhatsApp: (47) 9 9151-4600
-- Endereço: Rua Max, 200 — São João, Itajaí/SC
-- Instagram: @start.bombas
-- As 6 categorias de produto, com descrição e "Aplicações" reais (`js/main.js`, array `PRODUTOS`)
-- Fotos reais de cada categoria de produto (`assets/produtos/`, extraídas do PDF)
-- Foto real da fachada da fábrica, usada no hero (`assets/fachada-fabrica.jpeg`)
-- Texto de "Sobre nós" e "Portfólio" (seção `#sobre`)
-- Catálogo em PDF completo, disponível pra download direto no site
-  (`assets/catalogo/catalogo-start-industrial.pdf`)
+GitHub Pages já está ativo (branch `main`, pasta raiz) — publica sozinho a cada push:
+**https://psrafa.github.io/start-industrial-site/**
 
 ## Estrutura
 
 ```
-index.html                          página única
-css/styles.css                      todo o estilo
-js/main.js                          carrossel, modal, grid do Instagram, marquee, menu mobile
-legal/politica-de-privacidade.html
-assets/start_ind.png                logo oficial
-assets/fachada-fabrica.jpeg         foto real da fábrica (usada no hero)
-assets/produtos/*.jpeg              fotos reais de cada categoria (extraídas do catálogo)
-assets/catalogo/*.pdf               catálogo completo pra download
-tools/extract_catalog_images.py     script usado pra extrair as fotos do PDF — reaproveitar
-                                     se o catálogo for atualizado no futuro
+index.html                    template + dados dos 11 produtos/5 famílias (editar aqui)
+support.js                    runtime do Claude Design — gerado, não editar à mão
+assets/logo.png / logo-white.png    logo oficial (versão escura e branca)
+assets/star.png / star-white.png    marca-d'água da estrela
+assets/produtos/*.png         fotos reais de produto (fundo transparente)
+assets/fachada-fabrica.jpeg   foto real da fábrica
+assets/whatsapp.svg           ícone do WhatsApp
+assets/catalogo/*.pdf         catálogo completo em PDF (não linkado no design atual)
+legal/politica-de-privacidade.html   página avulsa, fora do design (não referenciada no
+                                      layout atual — o site não tem formulário coletando
+                                      dados, só links diretos pro WhatsApp)
+tools/screenshot*.js          scripts Playwright pra testar visualmente antes de publicar
+                               (rodar depois de qualquer mudança — ver seção abaixo)
 ```
 
-## Formulário de orçamento
+## ⚠️ Sempre testar visualmente antes de reportar como pronto
 
-Usa [FormSubmit](https://formsubmit.co) (gratuito, sem cadastro, sem backend) para receber
-os dados por e-mail, incluindo o anexo de projeto (PDF/DWG/imagem). Zero custo.
+Esse site usa técnicas de scroll (pin horizontal nos produtos, parallax, revelação de
+palavras) que dependem de JavaScript calculando a posição de rolagem. Um erro nisso já
+causou seções inteiras "sumirem" em versões anteriores do site. Antes de publicar qualquer
+mudança:
 
-## Toques de UX/UI adicionados
+```
+npx serve . -p 8802     # num terminal
+node tools/screenshot_dc.js       # noutro — tira print desktop com/sem rolar, testa o modal
+node tools/screenshot_dc_mobile.js   # print mobile
+```
 
-- Marquee contínuo com os setores atendidos (dado real, extraído das "Aplicações" do catálogo)
-- Grid de "posts" estilo Instagram com as fotos reais, linkando pro perfil @start.bombas
-- Parallax sutil na foto do hero ao rolar (desativa automaticamente se o visitante tem
-  "reduzir movimento" ativado no sistema)
-- Hover com zoom sutil nos cards de produto
-- Modal de produto com foto real + bloco de "Aplicações"
+Os prints vão pra pasta indicada no topo de cada script. Olhar os dois (`dc_no_scroll.png`
+e `dc_after_scroll.png`) — o espaço em branco grande no meio do `dc_no_scroll.png` é
+esperado (é a "pista" de rolagem do carrossel com pin) e só desaparece depois de rolar de
+verdade, o que é normal pra essa técnica.
+
+## Pendências / pontos de atenção
+
+- [ ] O footer do design atual **não linka** a Política de Privacidade nem o catálogo em
+      PDF. Se quiser esses links visíveis no site, pedir ajuste no Claude Design (canvas
+      original) ou editar `index.html` diretamente.
+- [ ] Console do navegador mostra um erro não-fatal (`TypeError` em `componentDidUpdate`,
+      "reading 'filter'") vindo do runtime `support.js` durante a transição de streaming —
+      não afeta o que é renderizado (testado com Playwright, com e sem rolagem), mas é do
+      runtime gerado, não dá pra corrigir editando `index.html`.
+- [ ] Horário de atendimento não aparece no site atual (o design não tem esse campo).
+- [ ] CNPJ não está no catálogo, não aparece no site.
+
+## Dados reais usados (vieram do catálogo oficial 2026)
+
+Telefone/WhatsApp (47) 9 9151-4600, Instagram @start.industrial, endereço Rua Max, 200 —
+São João, Itajaí/SC, os 11 sistemas em 5 famílias (StartFlow, StartPress, StartFire,
+StartDrain, Construction) com ficha técnica completa, e as fotos reais de cada produto.
