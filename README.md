@@ -1,10 +1,9 @@
 # Start Industrial — Landing Page
 
 Site institucional da Start Industrial (sistemas de motobombas e painéis de comando,
-Itajaí/SC). Uma página só, com scroll storytelling — headline em máscara animada, cinco
-famílias de produto, carrossel horizontal com "pin" nos 11 sistemas, tabela de seleção por
-aplicação, seção institucional com parallax e revelação de palavras, e contato direto por
-WhatsApp.
+Itajaí/SC). Uma página só — hero direto, cinco famílias de produto, grade estática com os
+11 sistemas (imagens sempre visíveis por inteiro, sem depender de rolagem), tabela de
+seleção por aplicação, seção institucional e contato direto por WhatsApp.
 
 **Origem**: este site foi desenhado numa ferramenta visual de design e exportado como site
 estático. `index.html` contém o template + a lógica do componente; `support.js` é o runtime
@@ -50,10 +49,9 @@ tools/screenshot*.js          scripts Playwright pra testar visualmente antes de
 
 ## ⚠️ Sempre testar visualmente antes de reportar como pronto
 
-Esse site usa técnicas de scroll (pin horizontal nos produtos, parallax, revelação de
-palavras) que dependem de JavaScript calculando a posição de rolagem. Um erro nisso já
-causou seções inteiras "sumirem" em versões anteriores do site. Antes de publicar qualquer
-mudança:
+As seções usam revelação por rolagem (fade/translate ao entrar na tela, via polling, não
+`IntersectionObserver`), mas nenhuma imagem ou produto depende de rolagem pra aparecer por
+inteiro — a grade de sistemas é estática. Antes de publicar qualquer mudança:
 
 ```
 npx serve . -p 8802     # num terminal
@@ -61,19 +59,18 @@ node tools/screenshot_dc.js       # noutro — tira print desktop com/sem rolar,
 node tools/screenshot_dc_mobile.js   # print mobile
 ```
 
-Os prints vão pra `tools/shots/`. Olhar os dois (`dc_no_scroll.png`
-e `dc_after_scroll.png`) — o espaço em branco grande no meio do `dc_no_scroll.png` é
-esperado (é a "pista" de rolagem do carrossel com pin) e só desaparece depois de rolar de
-verdade, o que é normal pra essa técnica.
+Os prints vão pra `tools/shots/`. Numa captura `fullPage` do Playwright, a barra de
+navegação (`position:sticky`) pode aparecer duplicada/deslocada no meio da imagem — é
+artefato da técnica de screenshot, não um bug real; conferir sempre com um screenshot de
+viewport normal (sem `fullPage`) rolado até a seção em dúvida.
 
 ## Pendências / pontos de atenção
 
 - [ ] O footer do design atual **não linka** a Política de Privacidade nem o catálogo em
       PDF. Se quiser esses links visíveis no site, editar `index.html` diretamente.
-- [ ] Console do navegador mostra um erro não-fatal (`TypeError` em `componentDidUpdate`,
-      "reading 'filter'") vindo do runtime `support.js` durante a transição de streaming —
-      não afeta o que é renderizado (testado com Playwright, com e sem rolagem), mas é do
-      runtime gerado, não dá pra corrigir editando `index.html`.
+- [ ] Console do navegador mostra um erro não-fatal (`TypeError`, "reading 'filter'") vindo
+      do runtime `support.js` durante a transição de streaming — não afeta o que é
+      renderizado, mas é do runtime gerado, não dá pra corrigir editando `index.html`.
 - [ ] Horário de atendimento não aparece no site atual (o design não tem esse campo).
 - [ ] CNPJ não está no catálogo, não aparece no site.
 
