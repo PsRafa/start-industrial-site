@@ -75,6 +75,14 @@ a:hover{color:#1d7a70}
 .brand-logo-full{height:38px;display:block}
 .brand-logo-icon{height:36px;display:block}
 @media (max-width:380px){.wa-label{display:none}.wa-pill{padding:11px!important}}
+.modal-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:min(88vh,820px);width:min(1180px,100%)}
+.modal-img{height:100%;min-height:0}
+.modal-body{height:100%;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:820px){
+  .modal-panel{grid-template-columns:1fr;height:auto;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .modal-img{height:auto;min-height:260px;max-height:40vh}
+  .modal-body{height:auto;overflow-y:visible}
+}
 </style>
 </helmet>
 
@@ -333,13 +341,13 @@ a:hover{color:#1d7a70}
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0b5b56"></rect><circle cx="50" cy="50" r="20" fill="#5fc2a8"></circle></svg></template>
 <sc-if value="{{ modalOpen }}">
   <div onClick="{{ close }}" style="position:fixed;inset:0;z-index:300;background:rgba(6,42,39,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:si-fade .3s ease both;display:flex;align-items:center;justify-content:center;padding:clamp(10px,3vw,40px)">
-    <div onClick="{{ stop }}" style="position:relative;width:min(1180px,100%);max-height:100%;overflow:auto;background:#f4f3ee;border-radius:32px;animation:si-panel .5s cubic-bezier(.2,.7,.2,1) both;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+    <div onClick="{{ stop }}" class="modal-panel" style="position:relative;background:#f4f3ee;border-radius:32px;overflow:hidden;animation:si-panel .5s cubic-bezier(.2,.7,.2,1) both">
       <button onClick="{{ close }}" aria-label="Fechar" style="position:absolute;top:16px;right:16px;z-index:2;width:46px;height:46px;border-radius:50%;border:none;background:#062a27;color:#fff;font-size:20px;cursor:pointer;font-family:inherit;transition:transform .3s" style-hover="transform:rotate(90deg)">✕</button>
-      <div style="position:relative;background:radial-gradient(circle at 50% 55%, #cfe5dd 0 40%, #e3efe9 40.2%);min-height:240px;max-height:38vh;display:flex;align-items:center;justify-content:center;padding:28px 24px;box-sizing:border-box">
+      <div class="modal-img" style="position:relative;background:radial-gradient(circle at 50% 55%, #cfe5dd 0 42%, #e3efe9 42.2%);display:flex;align-items:center;justify-content:center;padding:clamp(24px,4vw,56px);box-sizing:border-box">
         <div style="position:absolute;top:16px;left:20px;right:64px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#0b5b56">{{ cur.crumb }}</div>
         <img src="{{ cur.img }}" alt="{{ cur.name }}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 24px 24px rgba(0,0,0,.22))">
       </div>
-      <div style="padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:26px">
+      <div class="modal-body" style="padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:26px">
         <div style="display:flex;flex-direction:column;gap:10px;padding-right:44px">
           <div style="font-weight:900;font-style:italic;font-stretch:118%;text-transform:uppercase;font-size:clamp(28px,3vw,42px);line-height:.95;letter-spacing:-.02em;color:#0b5b56">{{ cur.name }}</div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#3d5553">{{ cur.sub }}</div>
