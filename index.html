@@ -87,8 +87,8 @@ a:hover{color:#1d7a70}
   </a>
   <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
     <nav style="display:flex;gap:4px">
-      <a href="#familias" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Famílias</a>
-      <a href="#sistemas" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Sistemas</a>
+      <a href="#familias-grid" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Famílias</a>
+      <a href="#sistemas-grid" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Sistemas</a>
       <a href="#selecao" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Seleção</a>
       <a href="#empresa" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">A empresa</a>
       <a href="#contato" style="color:#fff;font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .25s" style-hover="background:rgba(255,255,255,.12);color:#fff">Contato</a>
@@ -109,8 +109,8 @@ a:hover{color:#1d7a70}
 
 <sc-if value="{{ menuOpen }}">
   <nav style="position:fixed;top:78px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 28px));z-index:99;display:flex;flex-direction:column;gap:2px;padding:12px;border-radius:24px;background:rgba(6,42,39,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);animation:si-fade .25s ease both">
-    <a href="#familias" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Famílias</a>
-    <a href="#sistemas" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Sistemas</a>
+    <a href="#familias-grid" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Famílias</a>
+    <a href="#sistemas-grid" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Sistemas</a>
     <a href="#selecao" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Seleção</a>
     <a href="#empresa" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">A empresa</a>
     <a href="#contato" onClick="{{ closeMenu }}" style="color:#fff;font-size:16px;font-weight:600;padding:14px 16px;border-radius:14px;transition:background .2s" style-hover="background:rgba(255,255,255,.1)">Contato</a>
@@ -130,7 +130,7 @@ a:hover{color:#1d7a70}
         Sistemas de <span style="color:#5fc2a8">motobombas</span> e painéis de comando
       </h1>
       <div data-reveal="up" data-delay="500" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
-        <a href="#sistemas" style="display:flex;align-items:center;gap:12px;background:#fff;color:#062a27;font-weight:700;font-size:16px;padding:18px 28px;border-radius:999px;transition:transform .3s" style-hover="transform:translateY(-3px) scale(1.03);color:#062a27">Ver os 11 sistemas <span style="font-size:20px">→</span></a>
+        <a href="#sistemas-grid" style="display:flex;align-items:center;gap:12px;background:#fff;color:#062a27;font-weight:700;font-size:16px;padding:18px 28px;border-radius:999px;transition:transform .3s" style-hover="transform:translateY(-3px) scale(1.03);color:#062a27">Ver os 11 sistemas <span style="font-size:20px">→</span></a>
         <a href="{{ waLink }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.3);color:#fff;font-weight:600;font-size:16px;padding:17px 26px;border-radius:999px;transition:background .3s" style-hover="background:rgba(255,255,255,.1);color:#fff">Falar com o comercial</a>
       </div>
     </div>
@@ -163,7 +163,7 @@ a:hover{color:#1d7a70}
   </div>
 </div>
 
-<section id="familias" data-screen-label="Famílias" style="background:#f4f3ee;padding:clamp(64px,6vw,88px) clamp(20px,4vw,56px) clamp(90px,10vw,130px);scroll-margin-top:24px">
+<section id="familias" data-screen-label="Famílias" style="background:#f4f3ee;padding:clamp(64px,6vw,88px) clamp(20px,4vw,56px) clamp(90px,10vw,130px)">
   <div style="max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:28px">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
       <div style="display:flex;flex-direction:column;gap:14px;max-width:900px">
@@ -171,7 +171,7 @@ a:hover{color:#1d7a70}
         <h2 data-reveal="up" data-delay="100" style="margin:0;font-weight:800;font-stretch:112%;font-size:clamp(26px,2.8vw,42px);line-height:1.08;letter-spacing:-.02em;text-wrap:balance">A escolha começa pela função do bombeamento</h2>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px">
+    <div id="familias-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;scroll-margin-top:96px">
       <sc-for list="{{ fams }}" as="f" hint-placeholder-count="5">
         <div data-reveal="up" data-delay="{{ f.delay }}" onClick="{{ f.go }}" style="cursor:pointer;position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:440px;min-width:0;padding:22px;border-radius:28px;background:#fff;overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1), background .4s, color .4s, box-shadow .5s" style-hover="transform:translateY(-10px);background:#0b5b56;color:#fff;box-shadow:0 30px 60px -30px rgba(6,42,39,.6)">
           <div style="display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.75">
@@ -195,7 +195,7 @@ a:hover{color:#1d7a70}
   </div>
 </section>
 
-<section id="sistemas" ref="{{ sistemasRef }}" data-screen-label="Sistemas" style="background:#e3efe9;padding:clamp(64px,6vw,88px) clamp(20px,4vw,56px) clamp(90px,10vw,130px);scroll-margin-top:24px">
+<section id="sistemas" data-screen-label="Sistemas" style="background:#e3efe9;padding:clamp(64px,6vw,88px) clamp(20px,4vw,56px) clamp(90px,10vw,130px)">
   <div style="max-width:1400px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:24px">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
       <div data-reveal="up" style="display:flex;flex-direction:column;gap:10px">
@@ -214,7 +214,7 @@ a:hover{color:#1d7a70}
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px">
+    <div id="sistemas-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;scroll-margin-top:96px">
       <sc-for list="{{ shown }}" as="p" hint-placeholder-count="4">
         <article data-reveal="up" data-delay="{{ p.delay }}" onClick="{{ p.open }}" style="cursor:pointer;display:flex;flex-direction:column;border-radius:24px;background:#fff;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s" style-hover="transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(6,42,39,.5)">
           <div style="position:relative;aspect-ratio:1/1;background:radial-gradient(circle at 50% 55%, #cfe5dd 0 42%, #f1f6f3 42.2%);display:flex;align-items:center;justify-content:center;padding:22px;box-sizing:border-box">
@@ -376,7 +376,6 @@ a:hover{color:#1d7a70}
 class Component extends DCLogic {
   state = { filter: 'Todos', open: null, desktop: true, menuOpen: false };
   progressRef = React.createRef(); navRef = React.createRef(); starRef = React.createRef(); star2Ref = React.createRef();
-  sistemasRef = React.createRef();
   wa = 'https://wa.me/5547991514600';
 
   fams = [
@@ -531,7 +530,7 @@ class Component extends DCLogic {
   prevP() { this.setState(s => ({ open: ((s.open ?? 1) - 1 + this.prods.length) % this.prods.length })); }
   setFilter(f, scroll) {
     this.setState({ filter: f });
-    if (scroll) { const el = this.sistemasRef.current; if (el) window.scrollTo({ top: el.offsetTop, behavior: 'smooth' }); }
+    if (scroll) { const el = document.getElementById('sistemas-grid'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: 'smooth' }); }
   }
   waFor(name) { return this.wa + '?text=' + encodeURIComponent(`Olá! Gostaria de informações sobre o ${name}.`); }
   toggleMenu() { this.setState(s => ({ menuOpen: !s.menuOpen })); }
@@ -567,8 +566,7 @@ class Component extends DCLogic {
       stop: e => e.stopPropagation(),
       next: () => this.nextP(),
       prev: () => this.prevP(),
-      progressRef: this.progressRef, navRef: this.navRef, starRef: this.starRef, star2Ref: this.star2Ref,
-      sistemasRef: this.sistemasRef
+      progressRef: this.progressRef, navRef: this.navRef, starRef: this.starRef, star2Ref: this.star2Ref
     };
   }
 }
